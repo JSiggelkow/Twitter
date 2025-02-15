@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,20 +15,11 @@ public class UserService {
 
 	/* Private Methods */
 
-	private User save(User user) {
+	public User save(User user) {
 		return userRepository.save(user);
 	}
 
-	private void deleteById(Long id) {
-		userRepository.deleteById(id);
-	}
-
-	private List<User> findAll() {
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
-
-	private Optional<User> findById(Long id) {
-		return userRepository.findById(id);
-	}
-
 }

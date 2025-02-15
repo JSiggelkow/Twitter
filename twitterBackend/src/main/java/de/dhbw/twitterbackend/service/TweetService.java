@@ -5,6 +5,7 @@ import de.dhbw.twitterbackend.repository.TweetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,4 +22,7 @@ public class TweetService {
 		return tweetRepository.findById(id);
 	}
 
+	public List<Tweet> findAll() {
+		return tweetRepository.findAll();
+	}
 }
