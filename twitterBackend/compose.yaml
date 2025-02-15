@@ -1,0 +1,47 @@
+services:
+
+  ## Postgres Database
+  db:
+    image: postgres:14-alpine
+    container_name: twitter-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_DB: twitter
+    ports:
+      - 5001:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    secrets:
+      - db_password
+
+  ## Spring Boot Backend
+  backend:
+    build: .
+    container_name: twitter-backend
+    depends_on:
+      - db
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/twitter
+        SPRING_DATASOURCE_USERNAME: postgres
+    ports:
+      - 8080:8080
+    develop:
+      watch:
+        - action: rebuild
+          path: ./src
+          target: /app/src
+        - action: rebuild
+          path: ./pom.xml
+    secrets:
+      - db_password
+
+## Secrets
+secrets:
+  db_password:
+    file: secrets/db_password.txt
+
+## Volumes
+volumes:
+  postgres-data:
