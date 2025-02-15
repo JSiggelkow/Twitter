@@ -28,19 +28,26 @@ public class Comment {
 	private String image;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "userid", nullable = false)
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "tweetId", nullable = false)
+	@JoinColumn(name = "tweetid", nullable = false)
 	private Tweet tweet;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parentCommentId")
+	@JoinColumn(name = "parentcommentid")
 	private Comment parentComment;
 
 	@ColumnDefault("now()")
-	@Column(name = "createdAt", nullable = false)
+	@Column(name = "createdat", nullable = false)
 	private OffsetDateTime createdAt;
+
+	@PrePersist
+	public void prePersist() {
+		if (this.createdAt == null) {
+			this.createdAt = OffsetDateTime.now();
+		}
+	}
 
 }

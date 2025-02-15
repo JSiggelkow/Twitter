@@ -10,24 +10,30 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "tweetLikes")
+@Table(name = "tweetlikes")
 public class TweetLike {
-	@SequenceGenerator(name = "tweetLikes_id_gen", sequenceName = "tweet_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "tweetlikes_id_gen", sequenceName = "tweet_id_seq", allocationSize = 1)
 	@EmbeddedId
 	private TweetLikeId id;
 
 	@MapsId("userId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "userid", nullable = false)
 	private User user;
 
 	@MapsId("tweetId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "tweetId", nullable = false)
+	@JoinColumn(name = "tweetid", nullable = false)
 	private Tweet tweet;
 
 	@ColumnDefault("now()")
-	@Column(name = "likedAt", nullable = false)
+	@Column(name = "likedat", nullable = false)
 	private OffsetDateTime likedAt;
 
+	@PrePersist
+	public void prePersist() {
+		if (this.likedAt == null) {
+			this.likedAt = OffsetDateTime.now();
+		}
+	}
 }

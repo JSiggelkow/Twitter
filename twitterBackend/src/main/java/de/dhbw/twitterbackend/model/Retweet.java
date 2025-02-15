@@ -18,16 +18,22 @@ public class Retweet {
 
 	@MapsId("userId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "userid", nullable = false)
 	private User user;
 
 	@MapsId("tweetId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "tweetId", nullable = false)
+	@JoinColumn(name = "tweetid", nullable = false)
 	private Tweet tweet;
 
 	@ColumnDefault("now()")
-	@Column(name = "retweetedAt", nullable = false)
+	@Column(name = "retweetedat", nullable = false)
 	private OffsetDateTime retweetedAt;
 
+	@PrePersist
+	public void prePersist() {
+		if (this.retweetedAt == null) {
+			this.retweetedAt = OffsetDateTime.now();
+		}
+	}
 }

@@ -15,10 +15,10 @@ import java.util.Objects;
 public class TweetLikeId implements java.io.Serializable {
 	@Serial
 	private static final long serialVersionUID = -4911786253279269910L;
-	@Column(name = "userId", nullable = false)
+	@Column(name = "userid", nullable = false)
 	private Long userId;
 
-	@Column(name = "tweetId", nullable = false)
+	@Column(name = "tweetid", nullable = false)
 	private Long tweetId;
 
 	@Override

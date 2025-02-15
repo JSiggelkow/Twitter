@@ -28,15 +28,21 @@ public class Tweet {
 	private String image;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "userid")
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "retweetId")
+	@JoinColumn(name = "retweetid")
 	private Tweet retweetId;
 
 	@ColumnDefault("now()")
-	@Column(name = "createdAt", nullable = false)
+	@Column(name = "createdat", nullable = false)
 	private OffsetDateTime createdAt;
 
+	@PrePersist
+	public void prePersist() {
+		if (this.createdAt == null) {
+			this.createdAt = OffsetDateTime.now();
+		}
+	}
 }

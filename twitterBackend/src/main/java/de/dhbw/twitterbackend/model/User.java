@@ -28,7 +28,13 @@ public class User {
 	private String email;
 
 	@ColumnDefault("now()")
-	@Column(name = "createdAt", nullable = false)
+	@Column(name = "createdat", nullable = false)
 	private OffsetDateTime createdAt;
 
+	@PrePersist
+	public void prePersist() {
+		if (this.createdAt == null) {
+			this.createdAt = OffsetDateTime.now();
+		}
+	}
 }

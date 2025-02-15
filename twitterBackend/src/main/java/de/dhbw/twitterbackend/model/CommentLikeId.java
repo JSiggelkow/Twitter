@@ -15,10 +15,10 @@ import java.util.Objects;
 public class CommentLikeId implements java.io.Serializable {
 	@Serial
 	private static final long serialVersionUID = 872487230343291588L;
-	@Column(name = "userId", nullable = false)
+	@Column(name = "userid", nullable = false)
 	private Long userId;
 
-	@Column(name = "commentId", nullable = false)
+	@Column(name = "commentid", nullable = false)
 	private Long commentId;
 
 	@Override
