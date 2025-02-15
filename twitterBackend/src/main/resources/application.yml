@@ -2,7 +2,7 @@ spring:
   application:
     name: "Twitter Backend"
   datasource:
-    url:
+    url: jdbc:postgresql://localhost:5001/twitter
     username: postgres
     password: ${DB_PASSWORD}
   jpa:
