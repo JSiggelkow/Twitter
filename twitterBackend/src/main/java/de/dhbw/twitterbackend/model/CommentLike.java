@@ -19,7 +19,7 @@ public class CommentLike {
 	@MapsId("userId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "userId", nullable = false)
-	private User userId;
+	private User user;
 
 	@MapsId("commentId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -28,6 +28,6 @@ public class CommentLike {
 
 	@ColumnDefault("now()")
 	@Column(name = "likedAt", nullable = false)
-	private OffsetDateTime likedAT;
+	private OffsetDateTime likedAt;
 
 }

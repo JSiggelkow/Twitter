@@ -29,15 +29,15 @@ public class Comment {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "userId", nullable = false)
-	private User userId;
+	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "tweetId", nullable = false)
-	private Tweet tweetId;
+	private Tweet tweet;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parentCommentId")
-	private Comment parentCommentId;
+	private Comment parentComment;
 
 	@ColumnDefault("now()")
 	@Column(name = "createdAt", nullable = false)

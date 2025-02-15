@@ -19,7 +19,7 @@ public class TweetLike {
 	@MapsId("userId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "userId", nullable = false)
-	private User userId;
+	private User user;
 
 	@MapsId("tweetId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

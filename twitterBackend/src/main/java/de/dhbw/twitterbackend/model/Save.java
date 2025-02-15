@@ -19,12 +19,12 @@ public class Save {
 	@MapsId("userId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "userId", nullable = false)
-	private User userId;
+	private User user;
 
 	@MapsId("tweetId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "tweetId", nullable = false)
-	private Tweet tweetId;
+	private Tweet tweet;
 
 	@ColumnDefault("now()")
 	@Column(name = "savedAt", nullable = false)
