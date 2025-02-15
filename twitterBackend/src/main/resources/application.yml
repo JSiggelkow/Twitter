@@ -1,4 +1,20 @@
 spring:
   application:
     name: "Twitter Backend"
+  datasource:
+    url:
+    username: postgres
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  flyway:
+    baseline-on-migrate: true
 
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.web: DEBUG
