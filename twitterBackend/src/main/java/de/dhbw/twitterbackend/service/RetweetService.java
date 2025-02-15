@@ -2,6 +2,7 @@ package de.dhbw.twitterbackend.service;
 
 import de.dhbw.twitterbackend.model.Retweet;
 import de.dhbw.twitterbackend.model.RetweetId;
+import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.repository.RetweetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class RetweetService {
 
 	private Optional<Retweet> findById(RetweetId id) {
 		return retweetRepository.findById(id);
+	}
+
+	/* Public Methods */
+	public Long countByTweet(Tweet tweet) {
+		return retweetRepository.countByTweet(tweet);
 	}
 }

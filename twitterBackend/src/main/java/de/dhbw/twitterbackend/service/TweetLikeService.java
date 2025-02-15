@@ -1,5 +1,6 @@
 package de.dhbw.twitterbackend.service;
 
+import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.model.TweetLike;
 import de.dhbw.twitterbackend.model.TweetLikeId;
 import de.dhbw.twitterbackend.repository.TweetLikeRepository;
@@ -31,5 +32,11 @@ public class TweetLikeService {
 
 	private Optional<TweetLike> findById(TweetLikeId id) {
 		return tweetLikeRepository.findById(id);
+	}
+
+	/* Public Methods */
+
+	public Long countByTweet(Tweet tweet) {
+		return tweetLikeRepository.countByTweet(tweet);
 	}
 }

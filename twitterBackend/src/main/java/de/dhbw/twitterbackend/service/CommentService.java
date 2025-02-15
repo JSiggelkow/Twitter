@@ -1,6 +1,7 @@
 package de.dhbw.twitterbackend.service;
 
 import de.dhbw.twitterbackend.model.Comment;
+import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class CommentService {
 
 	private Optional<Comment> findById(Long id) {
 		return commentRepository.findById(id);
+	}
+
+	/* Public Methods */
+	public Long countByTweet(Tweet tweet) {
+		return commentRepository.countByTweet(tweet);
 	}
 }
