@@ -67,9 +67,9 @@ Mit hilfe der compose.yaml können nun der Backend- und Datenbank-Container gest
 Obwohl aus dem ACD die Nutzung einer Oracle Database hervorgeht, wurde sich aus Kostengründen für die erstellung des Prototyps für eine PostgreSQL Datenbanklösung entschieden.\
 Um Datenbankänderungen und Versionen transparent zu gestalten wurde außerdem Flyway für die Datenbankmigration genutzt.
 Vor der Erstellung der Datenbank wurde eine Entity Relationship Modell erstellt um die Entitäten und Abhängigkeiten darzustellen.
-## Entity Relationship Modell:
+## Entity Relationship Modell
 ![alt Entity Relationship Modell](/assets/EntityRelationshipModell.png "Entity Relationship Modell")
-## Relationenmodell:
+## Relationenmodell
 Aus dem Entity Relationship Modell wurde anschließend ein Relationenmodell erstellt und normalisiert.
 ![alt Relationenmodell](/assets/Relationenmodell.png "Relationenmodell")
  
