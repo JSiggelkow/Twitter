@@ -15,10 +15,10 @@ public class UserController {
 
 	private final UserService userService;
 
-	//TODO Change User creation to UserDTO an add proper auth
-	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-		return ResponseEntity.ok(userService.save(user));
+	@PostMapping("/signup")
+	public ResponseEntity<Void> signUp(@RequestBody User user) {
+		userService.signUp(user.getUsername(), user.getPassword(), user.getEmail());
+		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping
