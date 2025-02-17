@@ -7,7 +7,8 @@
   </div>
   <div class="flex flex-col">
     @for (item of menuItems; track item) {
-      <app-menu-item [title]=item.title [iconClass]=item.iconClass />
+      <p-toast/>
+      <app-menu-item (keydown.enter)="notYetImplementedToast()" (click)="notYetImplementedToast()" [title]=item.title [iconClass]=item.iconClass />
     }
   </div>
   <div class="mt-2 max-w-60">
