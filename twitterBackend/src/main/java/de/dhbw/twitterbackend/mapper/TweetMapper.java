@@ -9,8 +9,6 @@ import de.dhbw.twitterbackend.service.TweetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 @RequiredArgsConstructor
 public class TweetMapper {
@@ -33,7 +31,7 @@ public class TweetMapper {
 				commentService.countByTweet(tweet));
 	}
 
-	public Optional<Tweet> toTweet(TweetDTO tweetDTO) {
+	public Tweet toTweet(TweetDTO tweetDTO) {
 		return tweetService.findById(tweetDTO.id());
 	}
 }

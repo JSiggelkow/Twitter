@@ -3,12 +3,10 @@ package de.dhbw.twitterbackend.service;
 import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.model.TweetLike;
 import de.dhbw.twitterbackend.model.TweetLikeId;
+import de.dhbw.twitterbackend.model.User;
 import de.dhbw.twitterbackend.repository.TweetLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,25 +14,17 @@ public class TweetLikeService {
 
 	private final TweetLikeRepository tweetLikeRepository;
 
-	/* Private Methods */
-
-	private TweetLike save(TweetLike tweetLike) {
+	public TweetLike save(TweetLike tweetLike) {
 		return tweetLikeRepository.save(tweetLike);
 	}
 
-	private void deleteById(TweetLikeId id) {
-		tweetLikeRepository.deleteById(id);
+	public void likeTweet(Tweet tweet, User user) {
+		TweetLike tweetLike = new TweetLike();
+		tweetLike.setId(new TweetLikeId(user.getId(), tweet.getId()));
+		tweetLike.setTweet(tweet);
+		tweetLike.setUser(user);
+		save(tweetLike);
 	}
-
-	private List<TweetLike> findAll() {
-		return tweetLikeRepository.findAll();
-	}
-
-	private Optional<TweetLike> findById(TweetLikeId id) {
-		return tweetLikeRepository.findById(id);
-	}
-
-	/* Public Methods */
 
 	public Long countByTweet(Tweet tweet) {
 		return tweetLikeRepository.countByTweet(tweet);
