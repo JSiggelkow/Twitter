@@ -1,5 +1,9 @@
+<p-toast position="bottom-center" preventOpenDuplicates="true"/>
 <div class="flex flex-col max-w-72 h-screen border-r border-gray-300 border-opacity-20">
-  <div class="w-fit hover:bg-neutral-800 rounded-full p-2" tabindex="0">
+  <div class="w-fit hover:bg-neutral-800 rounded-full p-2" tabindex="0"
+       (keydown.enter)="notYetImplementedToast()"
+       (click)="notYetImplementedToast()"
+  >
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
       <path
         d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -7,17 +11,25 @@
   </div>
   <div class="flex flex-col">
     @for (item of menuItems; track item) {
-      <p-toast/>
-      <app-menu-item (keydown.enter)="notYetImplementedToast()" (click)="notYetImplementedToast()" [title]=item.title [iconClass]=item.iconClass />
+      <app-menu-item
+        (keydown.enter)="notYetImplementedToast()"
+        (click)="notYetImplementedToast()"
+        [title]=item.title [iconClass]=item.iconClass />
     }
   </div>
-  <div class="mt-2 max-w-60">
+  <div class="mt-2 max-w-60"
+       (keydown.enter)="notYetImplementedToast()"
+       (click)="notYetImplementedToast()"
+  >
     <p-button label="Posten" fluid="true" rounded="true" class="hidden xl:block"/>
     <p-button icon="pi pi-pencil" size="large" rounded="true" class="xl:hidden"/>
   </div>
   <div class="m-auto"></div>
   <div>
-    <app-menu-user-card/>
+    <app-menu-user-card
+      (keydown.enter)="notYetImplementedToast()"
+      (click)="notYetImplementedToast()"
+    />
   </div>
 </div>
 

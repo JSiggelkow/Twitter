@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Button} from 'primeng/button';
 import {MenuItemComponent} from './menu-item/menu-item.component';
 import {MenuUserCardComponent} from './menu-user-card/menu-user-card.component';
@@ -23,20 +23,27 @@ export class MenuComponent {
   constructor(private readonly messageService: MessageService) {
   }
 
-  menuItems = [
-    { title: 'Startseite', iconClass: 'pi pi-home' },
-    { title: 'Entdecken', iconClass: 'pi pi-search' },
-    { title: 'Mitteilungen', iconClass: 'pi pi-bell' },
-    { title: 'Nachrichten', iconClass: 'pi pi-envelope' },
-    { title: 'Lesezeichen', iconClass: 'pi pi-bookmark' },
-    { title: 'Communities', iconClass: 'pi pi-users' },
-    { title: 'Premium', iconClass: 'pi pi-star' },
-    { title: 'Profil', iconClass: 'pi pi-user' },
-    { title: 'Mehr', iconClass: 'pi pi-ellipsis-h' }
+  menuItems: { title: string, iconClass: string }[] = [
+    {title: 'Startseite', iconClass: 'pi pi-home'},
+    {title: 'Entdecken', iconClass: 'pi pi-search'},
+    {title: 'Mitteilungen', iconClass: 'pi pi-bell'},
+    {title: 'Nachrichten', iconClass: 'pi pi-envelope'},
+    {title: 'Lesezeichen', iconClass: 'pi pi-bookmark'},
+    {title: 'Communities', iconClass: 'pi pi-users'},
+    {title: 'Premium', iconClass: 'pi pi-star'},
+    {title: 'Profil', iconClass: 'pi pi-user'},
+    {title: 'Mehr', iconClass: 'pi pi-ellipsis-h'}
   ];
 
+
   notYetImplementedToast() {
-   this.messageService.add({ severity: 'secondary', summary: 'Error', detail: 'Diese Funktion ist noch nicht implementiert!', life: 3000, closable: false})
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Diese Funktion ist noch nicht implementiert!',
+      life: 1500,
+      closable: false
+    })
   }
 
 }
