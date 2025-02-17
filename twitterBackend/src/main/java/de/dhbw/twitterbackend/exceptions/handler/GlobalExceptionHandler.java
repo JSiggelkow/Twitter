@@ -17,12 +17,17 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(buildErrorObject(HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(TweetNotFoundException.class)
+	public ResponseEntity<ErrorObject> handleTweetNotFoundException() {
+		return new ResponseEntity<>(buildErrorObject(HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
+	}
+
 	private ErrorObject buildErrorObject(int statusCode) {
 		ErrorObject errorObject = new ErrorObject();
 
 		errorObject.setStatusCode(statusCode);
 		errorObject.setTimestamp(ZonedDateTime.now());
-		
+
 		return errorObject;
 	}
 }

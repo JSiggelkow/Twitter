@@ -8,10 +8,10 @@ public class UserNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1;
 
 	public UserNotFoundException(String username) {
-		super("User with username: " + username + " was not found!");
+		super("User with username: " + username + " not found!");
 	}
 
 	public UserNotFoundException(Long userId) {
-		super("User with userId: " + userId + " was not found!");
+		super("User with id: " + userId + " not found!");
 	}
 }
