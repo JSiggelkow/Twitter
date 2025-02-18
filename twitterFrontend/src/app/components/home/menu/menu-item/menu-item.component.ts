@@ -7,7 +7,8 @@ import {NgClass} from '@angular/common';
     NgClass
   ],
   templateUrl: './menu-item.component.html',
-  styleUrl: './menu-item.component.scss'
+  styleUrl: './menu-item.component.scss',
+  standalone: true,
 })
 export class MenuItemComponent {
 

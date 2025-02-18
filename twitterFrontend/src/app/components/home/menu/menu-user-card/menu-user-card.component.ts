@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import {Card} from 'primeng/card';
 import {Avatar} from 'primeng/avatar';
 
 @Component({
   selector: 'app-menu-user-card',
   imports: [
-    Card,
     Avatar
   ],
   templateUrl: './menu-user-card.component.html',
-  styleUrl: './menu-user-card.component.scss'
+  styleUrl: './menu-user-card.component.scss',
+  standalone: true
 })
 export class MenuUserCardComponent {
 
