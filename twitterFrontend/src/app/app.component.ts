@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import {Button} from 'primeng/button';
 import {PrimeNG} from 'primeng/config';
 import {MyPreset} from './mytheme';
-import {MenuComponent} from './components/menu/menu.component';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [Button, MenuComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.scss'
