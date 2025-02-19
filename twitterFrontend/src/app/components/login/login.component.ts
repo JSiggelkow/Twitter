@@ -7,7 +7,6 @@ import {InputText} from 'primeng/inputtext';
 import {Password} from 'primeng/password';
 import {Button} from 'primeng/button';
 import {Message} from 'primeng/message';
-import {LoginModel} from '../../model/login-model';
 
 @Component({
   selector: 'app-login',
@@ -44,14 +43,9 @@ export class LoginComponent {
   })
 
   loginError: boolean = false;
-  login: LoginModel = {username: '', password: ''};
-
 
   onSubmit() {
-
-    this.setUpLoginModel();
-
-    this.authService.login(this.login)
+    this.authService.login(this.getLoginModel())
       .subscribe({
           next: () => {
             this.loginError = false;
@@ -68,8 +62,10 @@ export class LoginComponent {
     this.router.navigate(['/signup']).then();
   }
 
-  setUpLoginModel() {
-    this.login.username = this.usernameFormControl.value!;
-    this.login.password = this.passwordFormControl.value!;
+  getLoginModel() {
+    return {
+      username: this.loginForm.value.username ?? '',
+      password: this.loginForm.value.password ?? ''
+    }
   }
 }
