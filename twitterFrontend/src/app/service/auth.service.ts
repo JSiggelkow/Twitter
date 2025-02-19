@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map, of} from 'rxjs';
+import {LoginModel} from '../model/login-model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) { }
 
-  login(username: string, password: string) {
-    return this.http.post('http://localhost:8080/api/auth/login', {username, password}, {withCredentials: true});
+  login(loginModel: LoginModel) {
+    return this.http.post('http://localhost:8080/api/auth/login', loginModel, {withCredentials: true});
   }
 
   check() {

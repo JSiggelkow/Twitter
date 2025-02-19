@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../service/auth.service';
 import {FloatLabel} from 'primeng/floatlabel';
@@ -7,6 +7,7 @@ import {InputText} from 'primeng/inputtext';
 import {Password} from 'primeng/password';
 import {Button} from 'primeng/button';
 import {Message} from 'primeng/message';
+import {LoginModel} from '../../model/login-model';
 
 @Component({
   selector: 'app-login',
@@ -43,19 +44,32 @@ export class LoginComponent {
   })
 
   loginError: boolean = false;
+  login: LoginModel = {username: '', password: ''};
 
 
   onSubmit() {
-    this.authService.login(this.loginForm.value.username!, this.loginForm.value.password!)
+
+    this.setUpLoginModel();
+
+    this.authService.login(this.login)
       .subscribe({
-        next: () => {
-          this.loginError = false;
-          this.router.navigate(['/home']).then();
-        },
-        error: () => {
-          this.loginError = true;
-        }
+          next: () => {
+            this.loginError = false;
+            this.router.navigate(['/home']).then();
+          },
+          error: () => {
+            this.loginError = true;
+          }
         }
       )
+  }
+
+  toSignup() {
+    this.router.navigate(['/signup']).then();
+  }
+
+  setUpLoginModel() {
+    this.login.username = this.usernameFormControl.value!;
+    this.login.password = this.passwordFormControl.value!;
   }
 }
