@@ -83,7 +83,7 @@ export class SignupComponent {
 
   onSubmit() {
     this.loading = true;
-    if (this.signupForm.invalid) {
+    if (this.signupForm.valid) {
       this.signUp();
     }
   }
