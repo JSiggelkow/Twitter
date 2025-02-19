@@ -5,33 +5,72 @@
     </div>
     <div>
       <form [formGroup]="signupForm" class="flex flex-col gap-5">
+        @if (signupError) {
+          <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Sign Up Failed</p-message>
+        }
         <div>
           <p-floatlabel variant="in">
             <input pInputText id="username" autocomplete="off" formControlName="username" fluid="true">
             <label for="username">Username</label>
           </p-floatlabel>
+          @if (usernameFormControl.invalid && usernameFormControl.dirty) {
+            <p-message severity="error" variant="simple"
+                       size="small">{{ getUsernameErrorMessage(usernameFormControl) }}
+            </p-message>
+          }
         </div>
         <div>
           <p-floatlabel variant="in">
             <input pInputText id="email" autocomplete="off" formControlName="email" fluid="true">
             <label for="email">Email</label>
           </p-floatlabel>
+          @if (emailFormControl.invalid && emailFormControl.dirty) {
+            <p-message severity="error" variant="simple"
+                       size="small">{{ getEmailErrorMessage(emailFormControl) }}
+            </p-message>
+          }
         </div>
         <div>
           <p-floatlabel variant="in">
-            <p-password id="password" formControlName="password" [toggleMask]="true" [feedback]="false" fluid="true"/>
+            <p-password id="password" formControlName="password" [toggleMask]="true" [feedback]="true" fluid="true">
+              <ng-template #footer>
+                <p-divider/>
+                <ul class="pl-2 ml-2 my-0 leading-normal">
+                  <li [ngClass]="{'text-red-500': passwordFormControl.hasError('whitespace')}">Keine Leerzeichen</li>
+                  <li
+                    [ngClass]="{'text-red-500': passwordFormControl.hasError('minlength') || passwordFormControl.hasError('required')}">
+                    Mindestens 8 Zeichen
+                  </li>
+                  <li [ngClass]="{'text-red-500': passwordFormControl.hasError('maxlength')}">Maximal 255 Zeichen</li>
+                </ul>
+              </ng-template>
+            </p-password>
             <label for="password">Password</label>
           </p-floatlabel>
+          @if (passwordFormControl.invalid && passwordFormControl.dirty) {
+            <p-message severity="error" variant="simple"
+                       size="small">{{ getPasswordErrorMessage(passwordFormControl) }}
+            </p-message>
+          }
         </div>
         <div>
           <p-floatlabel variant="in">
-            <p-password id="repeatPassword" formControlName="repeatPassword" [toggleMask]="true" [feedback]="false"
-                        fluid="true"/>
+            <p-password id="repeatPassword" formControlName="repeatPassword" fluid="true" [feedback]="false"
+                        [toggleMask]="true"/>
             <label for="repeatPassword">Repeat Password</label>
           </p-floatlabel>
+          @if (signupForm.hasError('passwordsNotMatch') && passwordFormControl.valid && repeatPasswordFormControl.valid) {
+            <p-message severity="error" variant="simple"
+                       size="small">Passwörter stimmen nicht überein
+            </p-message>
+          }
         </div>
         <div>
-          <p-button (keydown.enter)="onSubmit()" (click)="onSubmit()" [disabled]="signupForm.invalid" label="Sign Up" type="submit" fluid="true"/>
+          <p-button (keydown.enter)="onSubmit()" (click)="onSubmit()"
+                    [disabled]="signupForm.invalid || signupForm.pending" label="Sign Up"
+                    icon="pi pi-user-plus"
+                    [loading]="loading"
+                    type="submit" fluid="true"/>
         </div>
       </form>
     </div>

@@ -43,16 +43,24 @@ export class LoginComponent {
   })
 
   loginError: boolean = false;
+  loading: boolean = false;
 
   onSubmit() {
+    this.loading = true;
+    this.login();
+  }
+
+  login() {
     this.authService.login(this.getLoginModel())
       .subscribe({
           next: () => {
             this.loginError = false;
+            this.loading = false;
             this.router.navigate(['/home']).then();
           },
           error: () => {
             this.loginError = true;
+            this.loading = false;
           }
         }
       )
