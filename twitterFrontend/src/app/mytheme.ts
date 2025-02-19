@@ -666,8 +666,26 @@ const MyPreset = definePreset(Aura, {
         background: "#121212",
       },
       tabpanel: {
-        background: "#121212"
+        background: "#121212",
+        padding: 0
       }
+    },
+    textarea: {
+      background: "#121212",
+      border: {
+        color: "#121212"
+      },
+      hover: {
+        border: {
+          color: "#121212"
+        }
+      },
+      focus: {
+        border: {
+          color: "#121212"
+        }
+      }
+
     }
   }
 });

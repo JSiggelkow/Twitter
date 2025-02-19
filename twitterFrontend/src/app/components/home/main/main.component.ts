@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
+import {PostComponent} from '../../shared/post/post.component';
 
 @Component({
   selector: 'app-main',
@@ -8,7 +9,8 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
     TabList,
     Tab,
     TabPanels,
-    TabPanel
+    TabPanel,
+    PostComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
