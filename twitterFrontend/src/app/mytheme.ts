@@ -656,7 +656,20 @@ const MyPreset = definePreset(Aura, {
                 }
             }
         }
-    }
+    },
+  components: {
+      tabs: {
+        tab: {
+          background: "#121212"
+        },
+        tablist: {
+          background: "#121212"
+        },
+        tabpanel: {
+          background: "#121212"
+        }
+      }
+  }
 });
 
 export { MyPreset };

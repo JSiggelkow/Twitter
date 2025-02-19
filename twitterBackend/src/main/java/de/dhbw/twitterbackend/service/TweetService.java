@@ -1,6 +1,6 @@
 package de.dhbw.twitterbackend.service;
 
-import de.dhbw.twitterbackend.exceptions.handler.TweetNotFoundException;
+import de.dhbw.twitterbackend.exceptions.TweetNotFoundException;
 import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.repository.TweetRepository;
 import de.dhbw.twitterbackend.security.UserPrincipal;
