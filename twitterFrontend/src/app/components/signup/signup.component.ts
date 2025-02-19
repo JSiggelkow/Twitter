@@ -24,7 +24,7 @@ export class SignupComponent {
 
   constructor(
     private readonly router: Router,
-    private readonly auth: AuthService) {
+    private readonly authService: AuthService) {
   }
 
   usernameFormControl = new FormControl('', [
@@ -38,6 +38,7 @@ export class SignupComponent {
 
   passwordFormControl = new FormControl('', [
     Validators.required,
+
   ])
 
   repeatPasswordFormControl = new FormControl('', [
@@ -50,6 +51,28 @@ export class SignupComponent {
     password: this.passwordFormControl,
     repeatPassword: this.repeatPasswordFormControl,
   })
+
+  onSubmit() {
+    this.signUp();
+  }
+
+  signUp() {
+    this.authService.signup(this.getSignUpModel())
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/login']).then();
+        },
+        error: () => {}
+      })
+  }
+
+  getSignUpModel() {
+    return {
+      username: this.signupForm.value.username ?? '',
+      email: this.signupForm.value.email ?? '',
+      password: this.signupForm.value.password ?? '',
+    }
+  }
 
   toLogin() {
     this.router.navigate(['/login']).then();

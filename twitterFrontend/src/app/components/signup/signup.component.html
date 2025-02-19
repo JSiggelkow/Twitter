@@ -25,12 +25,13 @@
         </div>
         <div>
           <p-floatlabel variant="in">
-            <p-password id="repeatPassword" formControlName="repeatPassword" [toggleMask]="true" [feedback]="false" fluid="true"/>
+            <p-password id="repeatPassword" formControlName="repeatPassword" [toggleMask]="true" [feedback]="false"
+                        fluid="true"/>
             <label for="repeatPassword">Repeat Password</label>
           </p-floatlabel>
         </div>
         <div>
-          <p-button label="Sign Up" type="submit" fluid="true"/>
+          <p-button (keydown.enter)="onSubmit()" (click)="onSubmit()" [disabled]="signupForm.invalid" label="Sign Up" type="submit" fluid="true"/>
         </div>
       </form>
     </div>
