@@ -35,4 +35,12 @@ public class UserService {
 		user.setEmail(email);
 		save(user);
 	}
+
+	public boolean checkUsernameExists(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+	public boolean checkEmailExists(String email) {
+		return userRepository.existsByEmail(email);
+	}
 }

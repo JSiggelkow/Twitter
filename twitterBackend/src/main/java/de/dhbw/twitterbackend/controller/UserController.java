@@ -25,4 +25,14 @@ public class UserController {
 	public ResponseEntity<List<User>> getAllUser() {
 		return ResponseEntity.ok(userService.findAll());
 	}
+
+	@GetMapping("/exists/username")
+	public boolean checkUsernameExists(@RequestParam String username) {
+		return userService.checkUsernameExists(username);
+	}
+
+	@GetMapping("/exists/email")
+	public boolean checkEmailExists(@RequestParam String email) {
+		return userService.checkEmailExists(email);
+	}
 }
