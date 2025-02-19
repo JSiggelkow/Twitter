@@ -16,7 +16,8 @@ import {NgClass} from '@angular/common';
     NgClass
   ],
   templateUrl: './post.component.html',
-  styleUrl: './post.component.scss'
+  styleUrl: './post.component.scss',
+  standalone: true,
 })
 export class PostComponent {
 

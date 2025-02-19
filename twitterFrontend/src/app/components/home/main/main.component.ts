@@ -15,7 +15,8 @@ import {Message} from 'primeng/message';
     Message
   ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
+  standalone: true,
 })
 export class MainComponent {
 }

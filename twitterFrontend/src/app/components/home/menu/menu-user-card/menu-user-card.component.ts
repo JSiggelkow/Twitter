@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
+import {UserService} from '../../../../service/user.service';
 
 @Component({
   selector: 'app-menu-user-card',
@@ -10,7 +11,15 @@ import {Avatar} from 'primeng/avatar';
   styleUrl: './menu-user-card.component.scss',
   standalone: true
 })
-export class MenuUserCardComponent {
+export class MenuUserCardComponent implements OnInit {
 
-  username: string = 'Gregory Peck' //Todo: Muss später durch Anmeldung geladen werden
+  username: string | null = null;
+
+  userService = inject(UserService);
+
+  ngOnInit(): void {
+    this.userService.user$.subscribe(user => {
+      this.username = user?.username ?? '';
+    });
+  }
 }

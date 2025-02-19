@@ -1,9 +1,12 @@
 package de.dhbw.twitterbackend.controller;
 
+import de.dhbw.twitterbackend.dto.UserDTO;
 import de.dhbw.twitterbackend.model.User;
+import de.dhbw.twitterbackend.security.UserPrincipal;
 import de.dhbw.twitterbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,5 +38,10 @@ public class UserController {
 	@GetMapping("/exists/email")
 	public boolean checkEmailExists(@RequestParam String email) {
 		return userService.checkEmailExists(email);
+	}
+
+	@GetMapping("/info")
+	public ResponseEntity<UserDTO> getUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+		return ResponseEntity.ok(new UserDTO(userPrincipal.getUserId(), userPrincipal.getUsername()));
 	}
 }
