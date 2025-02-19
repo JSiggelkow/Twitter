@@ -1,4 +1,4 @@
-package de.dhbw.twitterbackend.exceptions.handler;
+package de.dhbw.twitterbackend.exceptions;
 
 public class TweetNotFoundException extends RuntimeException {
 	public TweetNotFoundException(Long tweetId) {

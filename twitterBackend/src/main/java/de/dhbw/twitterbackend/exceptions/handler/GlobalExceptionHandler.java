@@ -1,5 +1,6 @@
 package de.dhbw.twitterbackend.exceptions.handler;
 
+import de.dhbw.twitterbackend.exceptions.TweetNotFoundException;
 import de.dhbw.twitterbackend.exceptions.UserNotFoundException;
 import de.dhbw.twitterbackend.util.ErrorObject;
 import org.springframework.http.HttpStatus;
