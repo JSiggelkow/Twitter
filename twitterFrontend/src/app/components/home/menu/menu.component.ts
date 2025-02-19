@@ -38,8 +38,8 @@ export class MenuComponent {
 
   notYetImplementedToast() {
     this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
+      severity: 'info',
+      summary: 'Info',
       detail: 'Diese Funktion ist noch nicht implementiert!',
       life: 1500,
       closable: false

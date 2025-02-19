@@ -684,6 +684,14 @@ const MyPreset = definePreset(Aura, {
         border: {
           color: "#121212"
         }
+      },
+      invalid: {
+        placeholder: {
+          color: "#121212"
+        },
+        border: {
+          color: "#121212"
+        }
       }
 
     }
