@@ -6,6 +6,7 @@ import {FloatLabel} from 'primeng/floatlabel';
 import {InputText} from 'primeng/inputtext';
 import {Password} from 'primeng/password';
 import {Button} from 'primeng/button';
+import {Message} from 'primeng/message';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import {Button} from 'primeng/button';
     InputText,
     Password,
     Button,
+    Message,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -40,14 +42,19 @@ export class LoginComponent {
     password: this.passwordFormControl
   })
 
+  loginError: boolean = false;
+
 
   onSubmit() {
     this.authService.login(this.loginForm.value.username!, this.loginForm.value.password!)
       .subscribe({
         next: () => {
+          this.loginError = false;
           this.router.navigate(['/home']).then();
         },
-        error: () => {}
+        error: () => {
+          this.loginError = true;
+        }
         }
       )
   }
