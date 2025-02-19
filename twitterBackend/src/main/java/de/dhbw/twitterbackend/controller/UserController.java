@@ -4,6 +4,7 @@ import de.dhbw.twitterbackend.model.User;
 import de.dhbw.twitterbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<Void> signUp(@RequestBody User user) {
+	public ResponseEntity<Void> signUp(@RequestBody @Validated User user) {
 		userService.signUp(user.getUsername(), user.getPassword(), user.getEmail());
 		return ResponseEntity.ok().build();
 	}
