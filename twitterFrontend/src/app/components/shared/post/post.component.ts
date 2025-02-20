@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
 import {Textarea} from 'primeng/textarea';
 import {Button} from 'primeng/button';
@@ -23,9 +23,15 @@ export class PostComponent {
 
   text!: string;
   maxLength = 200;
+  @Output() post: EventEmitter<string> = new EventEmitter<string>();
 
   get remainingChars() {
     return this.maxLength - (this.text?.length || 0);
+  }
+
+  onPost() {
+    this.post.emit(this.text)
+    this.text = '';
   }
 
 }
