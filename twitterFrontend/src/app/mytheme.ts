@@ -692,6 +692,10 @@ const MyPreset = definePreset(Aura, {
         border: {
           color: "#121212"
         }
+      },
+      disabled: {
+        background: "#121212",
+        color: "#ffffff"
       }
 
     }

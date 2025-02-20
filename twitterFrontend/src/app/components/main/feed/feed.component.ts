@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
 import {PostComponent} from '../../shared/post/post.component';
 import {Message} from 'primeng/message';
+import {TweetComponent} from '../../shared/tweet/tweet.component';
 
 @Component({
   selector: 'app-feed',
@@ -12,7 +13,8 @@ import {Message} from 'primeng/message';
     TabPanels,
     TabPanel,
     PostComponent,
-    Message
+    Message,
+    TweetComponent
   ],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss',

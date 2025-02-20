@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import {MainComponent} from './components/home/main.component';
+import {MainComponent} from './components/main/main.component';
 import {LoginComponent} from './components/login/login.component';
 import {authGuard} from './guards/auth.guard';
 import {SignupComponent} from './components/signup/signup.component';
-import {FeedComponent} from './components/home/main/feed.component';
+import {FeedComponent} from './components/main/feed/feed.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
