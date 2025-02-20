@@ -5,8 +5,10 @@ import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.repository.TweetRepository;
 import de.dhbw.twitterbackend.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -25,13 +27,22 @@ public class TweetService {
 				.orElseThrow(() -> new TweetNotFoundException(id));
 	}
 
-	public List<Tweet> findAll() {
-		return tweetRepository.findAll();
-	}
-
 	public Tweet postTweet(Tweet tweet, UserPrincipal userPrincipal) {
 		tweet.setUser(userService.findByUsername(userPrincipal.getUsername()));
 
 		return save(tweet);
+	}
+
+	/**
+	 * Gets the newest Tweets in descending order by created At from the Database
+	 * this is important for the initial loading request for the main feed
+	 *
+	 */
+	public List<Tweet> getNewestByLimit(int limit) {
+		return tweetRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, limit));
+	}
+
+	public List<Tweet> getTweetsBeforeCreatedAtByLimit(OffsetDateTime createdAt, int limit) {
+		return tweetRepository.findByCreatedAtBeforeOrderByCreatedAtDesc(createdAt, PageRequest.of(0, limit));
 	}
 }

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Comparator;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
@@ -31,14 +31,21 @@ public class TweetController {
 				tweetService.postTweet(tweet, userPrincipal)));
 	}
 
-	@GetMapping
-	public ResponseEntity<List<TweetDTO>> getAllTweet() {
-		return ResponseEntity.ok(tweetService.findAll()
-				.stream()
+	@GetMapping("/newest")
+	public ResponseEntity<List<TweetDTO>> getNewestByLimit(@RequestParam(defaultValue = "50") int limit) {
+		return ResponseEntity.ok(tweetService.getNewestByLimit(limit).stream()
 				.map(tweetMapper::toDTO)
-				.sorted(Comparator.comparing(TweetDTO::createdAt).reversed())
-				.toList()
-		);
+				.toList());
+
+	}
+
+	@GetMapping("/before")
+	public ResponseEntity<List<TweetDTO>> getTweetsBeforeCreatedAtByLimit(
+			@RequestParam OffsetDateTime createdAt,
+			@RequestParam(defaultValue = "20") int limit) {
+		return ResponseEntity.ok(tweetService.getTweetsBeforeCreatedAtByLimit(createdAt, limit).stream()
+				.map(tweetMapper::toDTO)
+				.toList());
 	}
 
 	@PostMapping("/like/{tweetId}")
