@@ -1,0 +1,46 @@
+<script src="tweet.component.ts"></script>
+<div class="w-full flex flex-row p-2 border-b border-gray-300 border-opacity-20">
+  <div class="pt-2 mr-3 h-full">
+    <p-avatar icon="pi pi-user" shape="circle" size="large"/>
+  </div>
+  <div class="flex flex-col w-full pt-2">
+    <div class="flex flex-row gap-4">
+      <div class="flex flex-row w-full items-center justify-between">
+        <div class="flex flex-row gap-2 items-center">
+          <span class="text-white text-lg">{{ name }}</span>
+          <i class="pi pi-verified text-blue-500"></i>
+          <span class="text-xs text-gray-500">&#64;{{ username }}</span>
+          <span class="text-xs text-gray-500">• {{ time }}.</span>
+        </div>
+        <div>
+          <i class="pi pi-ellipsis-h text-gray-500 hover:text-blue-500"></i>
+        </div>
+      </div>
+    </div>
+    <div>
+      <textarea pTextarea disabled="true" [(ngModel)]="text" fluid="true" autoResize="true" rows="1" class="text-md p-0"></textarea>
+    </div>
+    <div class="flex flex-row justify-between items-center mt-2">
+      <div class="flex flex-row gap-1 items-center cursor-pointer group">
+        <i class="pi pi-comment text-md text-gray-500 group-hover:text-blue-500"></i>
+        <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ commentCount }}</span>
+      </div>
+      <div class="flex flex-row gap-1 items-center group">
+        <i class="pi pi-sync text-md text-gray-500 group-hover:text-green-500"></i>
+        <span class="text-xs text-gray-500 group-hover:text-green-500">{{retweetCount}}</span>
+      </div>
+      <div class="flex flex-row gap-1 items-center cursor-pointer group">
+        <i class="pi pi-heart text-md text-gray-500 group-hover:text-pink-700"></i>
+        <span class="text-xs text-gray-500 group-hover:text-pink-700">{{likeCount}}</span>
+      </div>
+      <div class="flex flex-row gap-1 items-center cursor-pointer group">
+        <i class="pi pi-chart-bar text-md text-gray-500 group-hover:text-blue-500"></i>
+        <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ viewsCount }}</span>
+      </div>
+      <div class="flex flex-row gap-2 items-center">
+        <i class="pi pi-bookmark text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
+        <i class="pi pi-upload text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
+      </div>
+    </div>
+  </div>
+</div>
