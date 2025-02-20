@@ -44,6 +44,7 @@ public class WebSecurityConfig {
 				.formLogin(AbstractHttpConfigurer::disable)
 				.securityMatcher(DEFAULT_API)
 				.authorizeHttpRequests(reg -> reg
+						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 						.requestMatchers("/api/auth/login").permitAll()
 						.requestMatchers("/api/user/signup").permitAll()
 						.requestMatchers("/api/user/exists/**").permitAll()
