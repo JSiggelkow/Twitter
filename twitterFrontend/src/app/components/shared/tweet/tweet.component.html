@@ -10,7 +10,7 @@
           <span class="text-white text-lg">{{ tweet.username }}</span>
           <i class="pi pi-verified text-blue-500"></i>
           <span class="text-xs text-gray-500">&#64;{{ tweet.username }}</span>
-          <span class="text-xs text-gray-500">• {{ time }}.</span>
+          <app-time-ago [createdAt]="tweet.createdAt"></app-time-ago>
         </div>
         <div>
           <i class="pi pi-ellipsis-h text-gray-500 hover:text-blue-500"></i>
