@@ -14,8 +14,12 @@ export class TweetService {
     return this.http.post('http://localhost:8080/api/tweet', {text}, {withCredentials: true});
   }
 
-  getAll() {
-    return this.http.get<TweetModel[]>('http://localhost:8080/api/tweet', {withCredentials: true});
+  newest(limit: number) {
+    return this.http.get<TweetModel[]>(`http://localhost:8080/api/tweet/newest?limit=${limit}`, {withCredentials: true});
+  }
+
+  before(createdAd: string) {
+    return this.http.get<TweetModel[]>(`http://localhost:8080/api/tweet/before?createdAt=${createdAd}`, {withCredentials: true});
   }
 }
 
