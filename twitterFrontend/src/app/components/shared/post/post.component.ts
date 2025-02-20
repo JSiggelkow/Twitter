@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {Toast} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import {TweetService} from '../../../service/tweet.service';
 
 @Component({
   selector: 'app-post',
@@ -25,10 +26,15 @@ import {MessageService} from 'primeng/api';
 })
 export class PostComponent {
 
+  messageService = inject(MessageService);
+  tweetService = inject(TweetService);
+
   text!: string;
   maxLength = 200;
-  @Output() post: EventEmitter<string> = new EventEmitter<string>();
-  messageService = inject(MessageService);
+  loading: boolean = false;
+
+  @Output() posted: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
   icons = [
     'image',
@@ -44,8 +50,33 @@ export class PostComponent {
   }
 
   onPost() {
-    this.post.emit(this.text)
-    this.text = '';
+    this.loading = true;
+    this.post();
+  }
+
+  post() {
+    this.tweetService.post(this.text).subscribe({
+      next: () => {
+        this.loading = false;
+        this.text = '';
+        this.posted.emit(true);
+      },
+      error: () => {
+        this.showTweetError();
+        this.loading = false;
+        this.posted.emit(false);
+      }
+    })
+  }
+
+  showTweetError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Fehler',
+      detail: 'Tweet konnte nicht gesendet werden!',
+      life: 3000,
+      closable: false
+    })
   }
 
   notYetImplementedToast() {

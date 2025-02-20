@@ -22,7 +22,7 @@
                'text-yellow-500': remainingChars < 100 && remainingChars >= 20,}"
           >{{ remainingChars }}</span>
         }
-        <p-button rounded label="Posten" [disabled]="remainingChars < 0 || remainingChars == maxLength" (onClick)="onPost()" (keydown.enter)="onPost()"></p-button>
+        <p-button rounded label="Posten" icon="pi pi-send" [loading]="loading" [disabled]="remainingChars < 0 || remainingChars == maxLength" (onClick)="onPost()" (keydown.enter)="onPost()"></p-button>
       </div>
     </div>
   </div>
