@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Button} from 'primeng/button';
 import {MenuItemComponent} from './menu-item/menu-item.component';
 import {MenuUserCardComponent} from './menu-user-card/menu-user-card.component';
@@ -20,8 +20,7 @@ import {MessageService} from 'primeng/api';
 })
 export class MenuComponent {
 
-  constructor(private readonly messageService: MessageService) {
-  }
+  messageService = inject(MessageService);
 
   menuItems: { title: string, iconClass: string }[] = [
     {title: 'Startseite', iconClass: 'pi pi-home'},
