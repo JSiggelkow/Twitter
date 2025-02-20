@@ -4,7 +4,7 @@ import {PostComponent} from '../../shared/post/post.component';
 import {Message} from 'primeng/message';
 
 @Component({
-  selector: 'app-main',
+  selector: 'app-feed',
   imports: [
     Tabs,
     TabList,
@@ -14,9 +14,9 @@ import {Message} from 'primeng/message';
     PostComponent,
     Message
   ],
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.scss',
+  templateUrl: './feed.component.html',
+  styleUrl: './feed.component.scss',
   standalone: true,
 })
-export class MainComponent {
+export class FeedComponent {
 }
