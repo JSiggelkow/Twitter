@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
 import {Textarea} from 'primeng/textarea';
 import {FormsModule} from '@angular/forms';
+import {TweetModel} from '../../../model/tweet-model';
 
 @Component({
   selector: 'app-tweet',
@@ -16,13 +17,10 @@ import {FormsModule} from '@angular/forms';
 export class TweetComponent {
 
 
-  name = 'Gregory Peck';
-  username = 'gregorypeck';
+  @Input() tweet!: TweetModel;
+
+
   time = '34min'
-  text = 'In einem Monat schreiben wir Datenbanken! Ich habe echt angst davor :( Kann mir jemand helfen?'
-  commentCount = 26;
-  retweetCount = 28;
-  likeCount = 815;
   viewsCount = 12345;
 
 }

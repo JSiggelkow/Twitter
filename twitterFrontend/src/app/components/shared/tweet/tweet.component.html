@@ -7,9 +7,9 @@
     <div class="flex flex-row gap-4">
       <div class="flex flex-row w-full items-center justify-between">
         <div class="flex flex-row gap-2 items-center">
-          <span class="text-white text-lg">{{ name }}</span>
+          <span class="text-white text-lg">{{ tweet.username }}</span>
           <i class="pi pi-verified text-blue-500"></i>
-          <span class="text-xs text-gray-500">&#64;{{ username }}</span>
+          <span class="text-xs text-gray-500">&#64;{{ tweet.username }}</span>
           <span class="text-xs text-gray-500">• {{ time }}.</span>
         </div>
         <div>
@@ -18,20 +18,20 @@
       </div>
     </div>
     <div>
-      <textarea pTextarea disabled="true" [(ngModel)]="text" fluid="true" autoResize="true" rows="1" class="text-md p-0"></textarea>
+      <textarea pTextarea disabled="true" [(ngModel)]="tweet.text" fluid="true" autoResize="true" rows="1" class="text-md p-0"></textarea>
     </div>
     <div class="flex flex-row justify-between items-center mt-2">
       <div class="flex flex-row gap-1 items-center cursor-pointer group">
         <i class="pi pi-comment text-md text-gray-500 group-hover:text-blue-500"></i>
-        <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ commentCount }}</span>
+        <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ tweet.countComments }}</span>
       </div>
       <div class="flex flex-row gap-1 items-center group">
         <i class="pi pi-sync text-md text-gray-500 group-hover:text-green-500"></i>
-        <span class="text-xs text-gray-500 group-hover:text-green-500">{{retweetCount}}</span>
+        <span class="text-xs text-gray-500 group-hover:text-green-500">{{ tweet.countRetweets }}</span>
       </div>
       <div class="flex flex-row gap-1 items-center cursor-pointer group">
         <i class="pi pi-heart text-md text-gray-500 group-hover:text-pink-700"></i>
-        <span class="text-xs text-gray-500 group-hover:text-pink-700">{{likeCount}}</span>
+        <span class="text-xs text-gray-500 group-hover:text-pink-700">{{ tweet.countLikes }}</span>
       </div>
       <div class="flex flex-row gap-1 items-center cursor-pointer group">
         <i class="pi pi-chart-bar text-md text-gray-500 group-hover:text-blue-500"></i>

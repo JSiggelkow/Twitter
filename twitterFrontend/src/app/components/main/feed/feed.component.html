@@ -8,7 +8,9 @@
       <p-tabpanels>
         <p-tabpanel value="0">
           <app-post></app-post>
-          <app-tweet></app-tweet>
+          @for (tweet of tweets; track tweet.id) {
+            <app-tweet [tweet]=tweet></app-tweet>
+          }
         </p-tabpanel>
         <p-tabpanel value="1">
           <p-message severity="info" icon="pi pi-info-circle" styleClass="mb-2">Dieser Bereich ist noch nicht implementiert!</p-message>
