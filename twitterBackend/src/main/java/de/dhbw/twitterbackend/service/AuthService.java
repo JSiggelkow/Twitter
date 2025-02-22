@@ -35,6 +35,10 @@ public class AuthService {
 		response.addHeader(HttpHeaders.SET_COOKIE, createResponseCookie(token, Duration.of(31, ChronoUnit.DAYS)).toString());
 	}
 
+	public void attemptLogout(HttpServletResponse response) {
+		response.addHeader(HttpHeaders.SET_COOKIE, createResponseCookie("", Duration.of(0, ChronoUnit.SECONDS)).toString());
+	}
+
 
 	private UserPrincipal authenticateUser(String username, String password) {
 		Authentication authentication = authenticationManager.authenticate(
