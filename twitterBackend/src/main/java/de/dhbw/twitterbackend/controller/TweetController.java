@@ -1,8 +1,8 @@
 package de.dhbw.twitterbackend.controller;
 
+import de.dhbw.twitterbackend.dto.CreateTweetDTO;
 import de.dhbw.twitterbackend.dto.TweetDTO;
 import de.dhbw.twitterbackend.mapper.TweetMapper;
-import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.security.UserPrincipal;
 import de.dhbw.twitterbackend.service.*;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,10 @@ public class TweetController {
 	private final FeedService feedService;
 
 	@PostMapping
-	public ResponseEntity<TweetDTO> postTweet(@RequestBody Tweet tweet, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+	public ResponseEntity<TweetDTO> postTweet(@RequestBody CreateTweetDTO createTweetDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(tweetMapper.toDTO(
-				tweetService.postTweet(tweet, userPrincipal), userPrincipal));
+				tweetService.postTweet(
+						tweetMapper.toTweet(createTweetDTO,userPrincipal), userPrincipal), userPrincipal));
 	}
 
 	@GetMapping("/newest")
