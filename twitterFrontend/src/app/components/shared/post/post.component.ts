@@ -56,7 +56,7 @@ export class PostComponent {
   }
 
   post() {
-    this.tweetService.post(this.text).subscribe({
+    this.tweetService.post({text: this.text, retweetId: null}).subscribe({
       next: (tweet) => {
         this.loading = false;
         this.text = '';
