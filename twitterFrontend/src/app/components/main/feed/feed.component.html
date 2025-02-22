@@ -7,7 +7,7 @@
       </p-tablist>
       <p-tabpanels>
         <p-tabpanel value="0">
-          <app-post></app-post>
+          <app-post (posted)="handlePost($event)"></app-post>
           @if (loading) {
             <div class="w-full flex justify-center items-center">
             <p-progress-spinner ariaLabel="loading" strokeWidth="8" animationDuration=".5s" class="mt-4" [style]="{width: '50px', height: '50px', stroke: 'blue'}" />

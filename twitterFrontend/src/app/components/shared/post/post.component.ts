@@ -7,6 +7,7 @@ import {NgClass} from '@angular/common';
 import {Toast} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {TweetService} from '../../../service/tweet.service';
+import {TweetModel} from '../../../model/tweet-model';
 
 @Component({
   selector: 'app-post',
@@ -33,7 +34,7 @@ export class PostComponent {
   maxLength = 200;
   loading: boolean = false;
 
-  @Output() posted: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() posted: EventEmitter<TweetModel | null> = new EventEmitter<TweetModel | null>();
 
 
   icons = [
@@ -56,15 +57,15 @@ export class PostComponent {
 
   post() {
     this.tweetService.post(this.text).subscribe({
-      next: () => {
+      next: (tweet) => {
         this.loading = false;
         this.text = '';
-        this.posted.emit(true);
+        this.posted.emit(tweet);
       },
       error: () => {
         this.showTweetError();
         this.loading = false;
-        this.posted.emit(false);
+        this.posted.emit(null);
       }
     })
   }

@@ -11,7 +11,7 @@ export class TweetService {
 
 
   post(text: string) {
-    return this.http.post('http://localhost:8080/api/tweet', {text}, {withCredentials: true});
+    return this.http.post<TweetModel>('http://localhost:8080/api/tweet', {text}, {withCredentials: true});
   }
 
   newest(limit: number) {

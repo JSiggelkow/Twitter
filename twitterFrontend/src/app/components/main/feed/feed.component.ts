@@ -129,4 +129,10 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.scrollSubscription?.unsubscribe();
   }
+
+  // methods gets triggered if the user posts a new tweet --> adds the new tweet to the first entry in the tweet array
+  handlePost(tweet: TweetModel | null) {
+   if (tweet) this.tweets.unshift(tweet);
+   else this.showErrorToast();
+  }
 }
