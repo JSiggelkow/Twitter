@@ -49,9 +49,9 @@ public class TweetController {
 				.toList());
 	}
 
-	@PostMapping("/like/{tweetId}")
-	public ResponseEntity<Void> likeTweet(@PathVariable long tweetId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-		tweetLikeService.likeTweet(
+	@PostMapping("/like")
+	public ResponseEntity<Void> toggleLike(@RequestParam long tweetId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		tweetLikeService.toggleLike(
 				tweetService.findById(tweetId),
 				userService.findByUsername(userPrincipal.getUsername())
 		);

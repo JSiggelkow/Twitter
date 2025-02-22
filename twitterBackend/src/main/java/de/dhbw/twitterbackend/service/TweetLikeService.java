@@ -18,12 +18,28 @@ public class TweetLikeService {
 		return tweetLikeRepository.save(tweetLike);
 	}
 
+	/**
+	 * if user has liked a tweet it gets unliked
+	 * else the tweet gets liked
+	 */
+	public void toggleLike(Tweet tweet, User user) {
+		if (isTweetLikedByUser(tweet, user)) {
+			unlikeTweet(tweet, user);
+		} else {
+			likeTweet(tweet, user);
+		}
+	}
+
 	public void likeTweet(Tweet tweet, User user) {
 		TweetLike tweetLike = new TweetLike();
 		tweetLike.setId(new TweetLikeId(user.getId(), tweet.getId()));
 		tweetLike.setTweet(tweet);
 		tweetLike.setUser(user);
 		save(tweetLike);
+	}
+
+	public void unlikeTweet(Tweet tweet, User user) {
+		tweetLikeRepository.deleteById(new TweetLikeId(user.getId(), tweet.getId()));
 	}
 
 	public Long countByTweet(Tweet tweet) {
