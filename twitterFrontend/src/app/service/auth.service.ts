@@ -11,12 +11,16 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) { }
 
+  signup(signupModel: SignupModel) {
+    return this.http.post('http://localhost:8080/api/user/signup', signupModel, {withCredentials: true});
+  }
+
   login(loginModel: LoginModel) {
     return this.http.post('http://localhost:8080/api/auth/login', loginModel, {withCredentials: true});
   }
 
-  signup(signupModel: SignupModel) {
-    return this.http.post('http://localhost:8080/api/user/signup', signupModel, {withCredentials: true});
+  logout() {
+    return this.http.post('http://localhost:8080/api/auth/logout', {}, {withCredentials: true});
   }
 
   check() {

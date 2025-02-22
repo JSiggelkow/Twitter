@@ -65,7 +65,7 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scrollSubscription = this.getScrollEvent();
   }
 
-  /* load the newest tweets on the first load of the feeed */
+  /* load the newest tweets on the first load of the feed with a limit */
   private loadNewest(): void {
     this.tweetService.newest(this.loadNewestLimit).subscribe({
       next: (tweets) => {
