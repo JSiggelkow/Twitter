@@ -27,6 +27,8 @@ export class TweetComponent {
 
   viewsCount = 12345;
 
+  @Input() quote: boolean = false;
+
   @Input() tweet!: TweetModel;
 
   tweetService = inject(TweetService);
