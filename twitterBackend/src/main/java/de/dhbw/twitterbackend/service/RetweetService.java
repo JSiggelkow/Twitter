@@ -23,7 +23,15 @@ public class RetweetService {
 		retweetRepository.save(retweet);
 	}
 
-	public void retweet(Tweet tweet, User user) {
+	public void toggleRetweet(Tweet tweet, User user) {
+		if (isTweetRetweetedByUser(tweet, user)) {
+			unRetweet(tweet, user);
+		} else {
+			retweet(tweet, user);
+		}
+	}
+
+	private void retweet(Tweet tweet, User user) {
 		if (isTweetRetweetedByUser(tweet, user)) throw new TweetAlreadyRetweetedException();
 		Retweet retweet = new Retweet();
 		retweet.setId(new RetweetId(user.getId(), tweet.getId()));
@@ -32,11 +40,15 @@ public class RetweetService {
 		save(retweet);
 	}
 
+	private void unRetweet(Tweet tweet, User user) {
+		retweetRepository.deleteById(new RetweetId(user.getId(), tweet.getId()));
+	}
+
 	public Long countByTweet(Tweet tweet) {
 		return retweetRepository.countByTweet(tweet);
 	}
 
-	public boolean isTweetRetweetedByUser(Tweet tweet, User user) {
+	private boolean isTweetRetweetedByUser(Tweet tweet, User user) {
 		return retweetRepository.existsById(new RetweetId(user.getId(), tweet.getId()));
 	}
 

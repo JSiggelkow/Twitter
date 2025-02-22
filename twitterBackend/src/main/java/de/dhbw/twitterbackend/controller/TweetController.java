@@ -55,8 +55,8 @@ public class TweetController {
 	}
 
 	@PostMapping("/retweet")
-	public ResponseEntity<Void> retweet(@RequestParam long tweetId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-		retweetService.retweet(
+	public ResponseEntity<Void> toggleRetweet(@RequestParam long tweetId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		retweetService.toggleRetweet(
 				tweetService.findById(tweetId),
 				userService.findByUsername(userPrincipal.getUsername())
 		);

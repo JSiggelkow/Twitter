@@ -29,7 +29,8 @@ public class TweetMapper {
 				tweetLikeService.countByTweet(tweet),
 				retweetService.countByTweet(tweet),
 				commentService.countByTweet(tweet),
-				tweetLikeService.isTweetLikedByUser(tweet, userService.findByUsername(userPrincipal.getUsername())));
+				tweetLikeService.isTweetLikedByUser(tweet, userService.findByUsername(userPrincipal.getUsername())),
+				false);
 	}
 
 	/**
@@ -47,6 +48,7 @@ public class TweetMapper {
 				tweetLikeService.countByTweet(retweet.getTweet()),
 				retweetService.countByTweet(retweet.getTweet()),
 				commentService.countByTweet(retweet.getTweet()),
-				tweetLikeService.isTweetLikedByUser(retweet.getTweet(), userService.findByUsername(userPrincipal.getUsername())));
+				tweetLikeService.isTweetLikedByUser(retweet.getTweet(), userService.findByUsername(userPrincipal.getUsername())),
+				retweet.getUser().getUsername().equals(userPrincipal.getUsername()));
 	}
 }
