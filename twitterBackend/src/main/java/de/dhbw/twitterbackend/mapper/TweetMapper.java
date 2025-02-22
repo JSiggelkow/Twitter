@@ -1,6 +1,7 @@
 package de.dhbw.twitterbackend.mapper;
 
 import de.dhbw.twitterbackend.dto.TweetDTO;
+import de.dhbw.twitterbackend.model.Retweet;
 import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.security.UserPrincipal;
 import de.dhbw.twitterbackend.service.*;
@@ -22,6 +23,7 @@ public class TweetMapper {
 				tweet.getVideo(),
 				tweet.getImage(),
 				tweet.getUser().getUsername(),
+				null,
 				tweet.getRetweetId() != null ? tweet.getRetweetId().getId() : null,
 				tweet.getCreatedAt(),
 				tweetLikeService.countByTweet(tweet),
@@ -30,4 +32,21 @@ public class TweetMapper {
 				tweetLikeService.isTweetLikedByUser(tweet, userService.findByUsername(userPrincipal.getUsername())));
 	}
 
+	/**
+	 * overloaded toDTO methods for retweets without text
+	 */
+	public TweetDTO toDTO(UserPrincipal userPrincipal, Retweet retweet) {
+		return new TweetDTO(retweet.getTweet().getId(),
+				retweet.getTweet().getText(),
+				retweet.getTweet().getVideo(),
+				retweet.getTweet().getImage(),
+				retweet.getTweet().getUser().getUsername(),
+				retweet.getUser().getUsername(),
+				retweet.getTweet().getRetweetId() != null ? retweet.getTweet().getRetweetId().getId() : null,
+				retweet.getTweet().getCreatedAt(),
+				tweetLikeService.countByTweet(retweet.getTweet()),
+				retweetService.countByTweet(retweet.getTweet()),
+				commentService.countByTweet(retweet.getTweet()),
+				tweetLikeService.isTweetLikedByUser(retweet.getTweet(), userService.findByUsername(userPrincipal.getUsername())));
+	}
 }

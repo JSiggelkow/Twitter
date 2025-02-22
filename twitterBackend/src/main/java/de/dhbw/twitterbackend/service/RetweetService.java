@@ -1,14 +1,13 @@
 package de.dhbw.twitterbackend.service;
 
-import de.dhbw.twitterbackend.model.Retweet;
-import de.dhbw.twitterbackend.model.RetweetId;
-import de.dhbw.twitterbackend.model.Tweet;
+import de.dhbw.twitterbackend.exceptions.TweetAlreadyRetweetedException;
+import de.dhbw.twitterbackend.model.*;
 import de.dhbw.twitterbackend.repository.RetweetRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,26 +15,28 @@ public class RetweetService {
 
 	private final RetweetRepository retweetRepository;
 
-	/* Private Methods '*/
-
-	private Retweet save(Retweet retweet) {
-		return retweetRepository.save(retweet);
+	private void save(Retweet retweet) {
+		retweetRepository.save(retweet);
 	}
 
-	private void deleteById(RetweetId id) {
-		retweetRepository.deleteById(id);
+	public void retweet(Tweet tweet, User user) {
+		if (isTweetRetweetedByUser(tweet, user)) throw new TweetAlreadyRetweetedException();
+		Retweet retweet = new Retweet();
+		retweet.setId(new RetweetId(user.getId(), tweet.getId()));
+		retweet.setTweet(tweet);
+		retweet.setUser(user);
+		save(retweet);
 	}
 
-	private List<Retweet> findAll() {
-		return retweetRepository.findAll();
-	}
-
-	private Optional<Retweet> findById(RetweetId id) {
-		return retweetRepository.findById(id);
-	}
-
-	/* Public Methods */
 	public Long countByTweet(Tweet tweet) {
 		return retweetRepository.countByTweet(tweet);
+	}
+
+	public boolean isTweetRetweetedByUser(Tweet tweet, User user) {
+		return retweetRepository.existsById(new RetweetId(user.getId(), tweet.getId()));
+	}
+
+	public List<Retweet> getNewestByLimit(int limit) {
+		return retweetRepository.findAllByOrderByRetweetedAtDesc(PageRequest.of(0, limit));
 	}
 }

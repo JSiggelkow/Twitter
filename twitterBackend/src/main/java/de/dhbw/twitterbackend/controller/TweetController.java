@@ -4,9 +4,7 @@ import de.dhbw.twitterbackend.dto.TweetDTO;
 import de.dhbw.twitterbackend.mapper.TweetMapper;
 import de.dhbw.twitterbackend.model.Tweet;
 import de.dhbw.twitterbackend.security.UserPrincipal;
-import de.dhbw.twitterbackend.service.TweetLikeService;
-import de.dhbw.twitterbackend.service.TweetService;
-import de.dhbw.twitterbackend.service.UserService;
+import de.dhbw.twitterbackend.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +21,9 @@ public class TweetController {
 	private final TweetService tweetService;
 	private final TweetMapper tweetMapper;
 	private final TweetLikeService tweetLikeService;
+	private final RetweetService retweetService;
 	private final UserService userService;
+	private final FeedService feedService;
 
 	@PostMapping
 	public ResponseEntity<TweetDTO> postTweet(@RequestBody Tweet tweet, @AuthenticationPrincipal UserPrincipal userPrincipal) {
@@ -32,17 +32,14 @@ public class TweetController {
 	}
 
 	@GetMapping("/newest")
-	public ResponseEntity<List<TweetDTO>> getNewestByLimit(@RequestParam(defaultValue = "50") int limit, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-		return ResponseEntity.ok(tweetService.getNewestByLimit(limit).stream()
-				.map(tweet -> tweetMapper.toDTO(tweet, userPrincipal))
-				.toList());
-
+	public ResponseEntity<List<TweetDTO>> getNewestByLimit(@RequestParam(defaultValue = "25") int limit, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		return ResponseEntity.ok(feedService.fetchNewestByLimit(limit, userPrincipal));
 	}
 
 	@GetMapping("/before")
 	public ResponseEntity<List<TweetDTO>> getTweetsBeforeCreatedAtByLimit(
 			@RequestParam OffsetDateTime createdAt,
-			@RequestParam(defaultValue = "20") int limit,
+			@RequestParam(defaultValue = "10") int limit,
 			@AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(tweetService.getTweetsBeforeCreatedAtByLimit(createdAt, limit).stream()
 				.map(tweet -> tweetMapper.toDTO(tweet, userPrincipal))
@@ -59,4 +56,13 @@ public class TweetController {
 		return ResponseEntity.ok().build();
 	}
 
+	@PostMapping("/retweet")
+	public ResponseEntity<Void> retweet(@RequestParam long tweetId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		retweetService.retweet(
+				tweetService.findById(tweetId),
+				userService.findByUsername(userPrincipal.getUsername())
+		);
+
+		return ResponseEntity.ok().build();
+	}
 }

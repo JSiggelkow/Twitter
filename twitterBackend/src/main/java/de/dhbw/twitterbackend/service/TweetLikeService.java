@@ -47,6 +47,6 @@ public class TweetLikeService {
 	}
 
 	public boolean isTweetLikedByUser(Tweet tweet, User user) {
-		return tweetLikeRepository.existsTweetLikeByTweetAndUser(tweet, user);
+		return tweetLikeRepository.existsById(new TweetLikeId(user.getId(), tweet.getId()));
 	}
 }
