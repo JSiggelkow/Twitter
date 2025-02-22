@@ -6,6 +6,7 @@ import {TweetModel} from '../../../model/tweet-model';
 import {TimeAgoComponent} from '../time-ago/time-ago.component';
 import {TweetService} from '../../../service/tweet.service';
 import {NgClass} from '@angular/common';
+import {Popover} from 'primeng/popover';
 
 
 @Component({
@@ -15,7 +16,8 @@ import {NgClass} from '@angular/common';
     Textarea,
     FormsModule,
     TimeAgoComponent,
-    NgClass
+    NgClass,
+    Popover
   ],
   templateUrl: './tweet.component.html',
   styleUrl: './tweet.component.scss',
@@ -54,6 +56,35 @@ export class TweetComponent {
       next: () => {
         this.tweet.isLiked = false;
         this.tweet.countLikes = -1 + this.tweet.countLikes;
+      },
+      error: () =>{}
+    })
+  }
+
+  onRetweet() {
+    if (this.tweet.isRetweeted) {
+      this.unRetweet();
+    } else {
+      this.retweet()
+    }
+  }
+
+  retweet() {
+    this.tweetService.toggleRetweet(this.tweet.id).subscribe({
+      next: () => {
+        this.tweet.isRetweeted = true;
+        this.tweet.countRetweets = 1 + this.tweet.countRetweets;
+      },
+      error: () =>{}
+    }
+    )
+  }
+
+  unRetweet() {
+    this.tweetService.toggleRetweet(this.tweet.id).subscribe({
+      next: () => {
+        this.tweet.isRetweeted = false;
+        this.tweet.countRetweets = -1 + this.tweet.countRetweets;
       },
       error: () =>{}
     })

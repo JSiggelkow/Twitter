@@ -1,5 +1,15 @@
-<script src="tweet.component.ts"></script>
-<div class="w-full flex flex-row p-2 border-b border-gray-300 border-opacity-20">
+@if (tweet.retweetedByUsername) {
+  <div class="flex flex-row items-center pt-2 gap-2">
+    <div class="flex items-center ml-8">
+      <i class="pi pi-sync text-sm text-gray-500"></i>
+    </div>
+    <div>
+      <span class="text-sm text-gray-500">{{ tweet.retweetedByUsername }}</span>
+      <span class="text-sm text-gray-500">&nbsp;hat repostet</span>
+    </div>
+  </div>
+}
+<div class="w-full flex flex-row pb-2 pr-2 pl-2 border-b border-gray-300 border-opacity-20">
   <div class="pt-2 mr-3 h-full">
     <p-avatar icon="pi pi-user" shape="circle" size="large"/>
   </div>
@@ -18,16 +28,39 @@
       </div>
     </div>
     <div>
-      <textarea pTextarea disabled="true" [(ngModel)]="tweet.text" fluid="true" autoResize="true" rows="1" class="text-md p-0"></textarea>
+      <textarea pTextarea disabled="true" [(ngModel)]="tweet.text" fluid="true" autoResize="true" rows="1"
+                class="text-md p-0"></textarea>
     </div>
+    <p-popover #retweetPop>
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-row gap-2 items-center cursor-pointer" (click)="onRetweet()"
+             (keydown.enter)="onRetweet()">
+          <i class="pi pi-sync"></i>
+          @if (tweet.isRetweeted) {
+            <span>Repost rückgängig machen</span>
+          } @else {
+            <span>Reposten</span>
+          }
+        </div>
+        <div class="flex flex-row gap-2 items-center cursor-pointer">
+          <i class="pi pi-pen-to-square"></i>
+          <span>Zitieren</span>
+        </div>
+      </div>
+    </p-popover>
     <div class="flex flex-row justify-between items-center mt-2">
       <div class="flex flex-row gap-1 items-center cursor-pointer group">
         <i class="pi pi-comment text-md text-gray-500 group-hover:text-blue-500"></i>
         <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ tweet.countComments }}</span>
       </div>
-      <div class="flex flex-row gap-1 items-center group">
-        <i class="pi pi-sync text-md text-gray-500 group-hover:text-green-500"></i>
-        <span class="text-xs text-gray-500 group-hover:text-green-500">{{ tweet.countRetweets }}</span>
+      <div class="flex flex-row gap-1 items-center group" (click)="retweetPop.toggle($event)"
+           (keydown.enter)="retweetPop.toggle($event)">
+        <i class="pi pi-sync text-md" [ngClass]="{
+        'group-hover:text-green-500 text-gray-500': !tweet.isRetweeted,
+          'group-hover:text-gray-500 text-green-500': tweet.isRetweeted}"></i>
+        <span class="text-xs" [ngClass]="{
+        'group-hover:text-green-500 text-gray-500': !tweet.isRetweeted,
+          'group-hover:text-gray-500 text-green-500': tweet.isRetweeted}">{{ tweet.countRetweets }}</span>
       </div>
       <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="onLike()" (keydown.enter)="onLike()">
         <i class="pi pi-heart text-md"

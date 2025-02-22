@@ -25,5 +25,9 @@ export class TweetService {
   toggleLike(tweetId: string) {
     return this.http.post(`http://localhost:8080/api/tweet/like?tweetId=${tweetId}`, {}, {withCredentials: true});
   }
+
+  toggleRetweet(tweetId: string) {
+    return this.http.post(`http://localhost:8080/api/tweet/retweet?tweetId=${tweetId}`, {}, {withCredentials: true});
+  }
 }
 
