@@ -28,13 +28,13 @@ public class TweetController {
 	@PostMapping
 	public ResponseEntity<TweetDTO> postTweet(@RequestBody Tweet tweet, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(tweetMapper.toDTO(
-				tweetService.postTweet(tweet, userPrincipal)));
+				tweetService.postTweet(tweet, userPrincipal), userPrincipal));
 	}
 
 	@GetMapping("/newest")
-	public ResponseEntity<List<TweetDTO>> getNewestByLimit(@RequestParam(defaultValue = "50") int limit) {
+	public ResponseEntity<List<TweetDTO>> getNewestByLimit(@RequestParam(defaultValue = "50") int limit, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(tweetService.getNewestByLimit(limit).stream()
-				.map(tweetMapper::toDTO)
+				.map(tweet -> tweetMapper.toDTO(tweet, userPrincipal))
 				.toList());
 
 	}
@@ -42,9 +42,10 @@ public class TweetController {
 	@GetMapping("/before")
 	public ResponseEntity<List<TweetDTO>> getTweetsBeforeCreatedAtByLimit(
 			@RequestParam OffsetDateTime createdAt,
-			@RequestParam(defaultValue = "20") int limit) {
+			@RequestParam(defaultValue = "20") int limit,
+			@AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(tweetService.getTweetsBeforeCreatedAtByLimit(createdAt, limit).stream()
-				.map(tweetMapper::toDTO)
+				.map(tweet -> tweetMapper.toDTO(tweet, userPrincipal))
 				.toList());
 	}
 

@@ -29,4 +29,8 @@ public class TweetLikeService {
 	public Long countByTweet(Tweet tweet) {
 		return tweetLikeRepository.countByTweet(tweet);
 	}
+
+	public boolean isTweetLikedByUser(Tweet tweet, User user) {
+		return tweetLikeRepository.existsTweetLikeByTweetAndUser(tweet, user);
+	}
 }
