@@ -9,4 +9,5 @@ export interface TweetModel {
   countLikes: string;
   countRetweets: string;
   countComments: string;
+  isLiked: boolean;
 }

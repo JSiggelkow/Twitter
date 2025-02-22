@@ -29,9 +29,15 @@
         <i class="pi pi-sync text-md text-gray-500 group-hover:text-green-500"></i>
         <span class="text-xs text-gray-500 group-hover:text-green-500">{{ tweet.countRetweets }}</span>
       </div>
-      <div class="flex flex-row gap-1 items-center cursor-pointer group">
-        <i class="pi pi-heart text-md text-gray-500 group-hover:text-pink-700"></i>
-        <span class="text-xs text-gray-500 group-hover:text-pink-700">{{ tweet.countLikes }}</span>
+      <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="onLike()" (keydown.enter)="onLike()">
+        <i class="pi pi-heart text-md"
+           [ngClass]="{
+           'group-hover:text-pink-600 text-gray-500': !tweet.isLiked,
+           'group-hover:text-gray-500 text-pink-600': tweet.isLiked}"></i>
+        <span class="text-xs"
+              [ngClass]="{
+              'group-hover:text-pink-600 text-gray-500': !tweet.isLiked,
+              'group-hover:text-gray-500 text-pink-600': tweet.isLiked}">{{ tweet.countLikes }}</span>
       </div>
       <div class="flex flex-row gap-1 items-center cursor-pointer group">
         <i class="pi pi-chart-bar text-md text-gray-500 group-hover:text-blue-500"></i>

@@ -21,5 +21,9 @@ export class TweetService {
   before(createdAd: string) {
     return this.http.get<TweetModel[]>(`http://localhost:8080/api/tweet/before?createdAt=${createdAd}`, {withCredentials: true});
   }
+
+  toggleLike(tweetId: string) {
+    return this.http.post(`http://localhost:8080/api/tweet/like?tweetId=${tweetId}`, {}, {withCredentials: true});
+  }
 }
 
