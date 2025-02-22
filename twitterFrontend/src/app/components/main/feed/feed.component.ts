@@ -39,7 +39,7 @@ import {MessageService} from 'primeng/api';
 export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tweets: TweetModel[] = [];
-  loadNewestLimit = 50;
+  loadNewestLimit = 25;
   loading: boolean = false;
 
   private scrollContainer?: HTMLElement;
