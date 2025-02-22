@@ -9,7 +9,5 @@ import java.util.List;
 
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
 
-	List<Tweet> findAllByOrderByCreatedAtDesc(Pageable pageable);
-
 	List<Tweet> findByCreatedAtBeforeOrderByCreatedAtDesc(OffsetDateTime createdAt, Pageable pageable);
 }

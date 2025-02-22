@@ -33,7 +33,7 @@ public class TweetController {
 
 	@GetMapping("/newest")
 	public ResponseEntity<List<TweetDTO>> getNewestByLimit(@RequestParam(defaultValue = "25") int limit, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-		return ResponseEntity.ok(feedService.fetchNewestByLimit(limit, userPrincipal));
+		return ResponseEntity.ok(feedService.fetchByLimitAndAfterTime(limit, OffsetDateTime.now(), userPrincipal));
 	}
 
 	@GetMapping("/before")
@@ -41,9 +41,7 @@ public class TweetController {
 			@RequestParam OffsetDateTime createdAt,
 			@RequestParam(defaultValue = "10") int limit,
 			@AuthenticationPrincipal UserPrincipal userPrincipal) {
-		return ResponseEntity.ok(tweetService.getTweetsBeforeCreatedAtByLimit(createdAt, limit).stream()
-				.map(tweet -> tweetMapper.toDTO(tweet, userPrincipal))
-				.toList());
+		return ResponseEntity.ok(feedService.fetchByLimitAndAfterTime(limit, createdAt, userPrincipal));
 	}
 
 	@PostMapping("/like")

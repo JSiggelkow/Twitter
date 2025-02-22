@@ -38,11 +38,7 @@ public class TweetService {
 	 * this is important for the initial loading request for the main feed
 	 *
 	 */
-	public List<Tweet> getNewestByLimit(int limit) {
-		return tweetRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, limit));
-	}
-
-	public List<Tweet> getTweetsBeforeCreatedAtByLimit(OffsetDateTime createdAt, int limit) {
-		return tweetRepository.findByCreatedAtBeforeOrderByCreatedAtDesc(createdAt, PageRequest.of(0, limit));
+	public List<Tweet> getByLimitAndTimeLimit(int limit, OffsetDateTime timeLimit) {
+		return tweetRepository.findByCreatedAtBeforeOrderByCreatedAtDesc(timeLimit ,PageRequest.of(0, limit));
 	}
 }
