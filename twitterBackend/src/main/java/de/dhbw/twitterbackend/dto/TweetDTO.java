@@ -13,5 +13,6 @@ public record TweetDTO(Long id,
                        Long countLikes,
                        Long countRetweets,
                        Long countComments,
-                       boolean isLiked) {
+                       boolean isLiked,
+                       boolean isRetweeted) {
 }
