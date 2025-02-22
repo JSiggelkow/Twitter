@@ -48,7 +48,7 @@ public class RetweetService {
 		return retweetRepository.countByTweet(tweet);
 	}
 
-	private boolean isTweetRetweetedByUser(Tweet tweet, User user) {
+	public boolean isTweetRetweetedByUser(Tweet tweet, User user) {
 		return retweetRepository.existsById(new RetweetId(user.getId(), tweet.getId()));
 	}
 

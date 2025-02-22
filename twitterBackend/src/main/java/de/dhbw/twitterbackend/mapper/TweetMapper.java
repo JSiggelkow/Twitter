@@ -30,7 +30,7 @@ public class TweetMapper {
 				retweetService.countByTweet(tweet),
 				commentService.countByTweet(tweet),
 				tweetLikeService.isTweetLikedByUser(tweet, userService.findByUsername(userPrincipal.getUsername())),
-				false);
+				retweetService.isTweetRetweetedByUser(tweet, userService.findByUsername(userPrincipal.getUsername())));
 	}
 
 	/**
