@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {booleanAttribute, Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
 import {Textarea} from 'primeng/textarea';
 import {Button} from 'primeng/button';
@@ -40,6 +40,7 @@ export class PostComponent {
 
   @Input() placeholder: string = "Was gibt's Neues?!";
   @Input() postButtonLabel: string = "Posten";
+  @Input() showParent: boolean = false;
 
   @Input() quote?: QuoteModel;
   @Input() parentPost?: TweetModel;
@@ -54,6 +55,15 @@ export class PostComponent {
     'calendar-clock',
     'map-marker'
   ]
+
+  get parentQuote(): QuoteModel {
+    return {
+      postId: this.parentPost!.id,
+      text: this.parentPost!.text,
+      createdAt: this.parentPost!.createdAt,
+      username: this.parentPost!.username
+    }
+  }
 
   get remainingChars() {
     return this.maxLength - (this.text?.length || 0);

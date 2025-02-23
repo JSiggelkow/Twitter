@@ -1,5 +1,6 @@
 <div class="flex flex-row justify-between items-center mt-2">
-  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="openCommentDialog($event)"
+       (keydown)="openCommentDialog($event)">
     <i class="pi pi-comment text-md text-gray-500 group-hover:text-blue-500"></i>
     <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ socialInteractions.countComments }}</span>
   </div>
@@ -23,11 +24,13 @@
               'group-hover:text-pink-600 text-gray-500': !socialInteractions.isLiked,
               'group-hover:text-gray-500 text-pink-600': socialInteractions.isLiked}">{{ socialInteractions.countLikes }}</span>
   </div>
-  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
+  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="$event.stopPropagation()"
+       (keydown.enter)="$event.stopPropagation()">
     <i class="pi pi-chart-bar text-md text-gray-500 group-hover:text-blue-500"></i>
     <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ socialInteractions.viewsCount }}</span>
   </div>
-  <div class="flex flex-row gap-2 items-center" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
+  <div class="flex flex-row gap-2 items-center" (click)="$event.stopPropagation()"
+       (keydown.enter)="$event.stopPropagation()">
     <i class="pi pi-bookmark text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
     <i class="pi pi-upload text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
   </div>
@@ -61,10 +64,38 @@
   (keydown.enter)="$event.stopPropagation()">
   <ng-template #headless>
     <div class="flex flex-col">
-      <div class="flex flex-row justify-start pt-2 pl-2" (click)="closeQuoteDialog()" (keydown.enter)="closeQuoteDialog()">
+      <div class="flex flex-row justify-start pt-2 pl-2" (click)="closeQuoteDialog()"
+           (keydown.enter)="closeQuoteDialog()">
         <i class="pi pi-times hover:text-red-500"></i>
       </div>
-      <app-post placeholder="Kommentar hinzufügen" [quote]="socialInteractions.quote" (posted)="handlePost()" ></app-post>
+      <app-post placeholder="Kommentar hinzufügen" [quote]="socialInteractions.quote"
+                (posted)="handlePost()"></app-post>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-dialog
+  draggable="false"
+  resizable="false"
+  dismissableMask="true"
+  [modal]="true"
+  [(visible)]="commentDialogVisible"
+  [styleClass]="'w-full lg:max-w-xl md:max-w-lg max-w-md'"
+  (click)="$event.stopPropagation()"
+  (keydown.enter)="$event.stopPropagation()"
+>
+  <ng-template #headless>
+    <div class="flex flex-col">
+      <div class="flex flex-row justify-start pt-2 pl-2" (click)="closeCommentDialog()"
+           (keydown.enter)="closeCommentDialog()">
+        <i class="pi pi-times hover:text-red-500"></i>
+      </div>
+      <app-post
+        placeholder="Deine Antwort posten"
+        postButtonLabel="Antworten"
+        [parentPost]="parent"
+        [showParent]="true"
+        (posted)="handlePost()"
+      ></app-post>
     </div>
   </ng-template>
 </p-dialog>

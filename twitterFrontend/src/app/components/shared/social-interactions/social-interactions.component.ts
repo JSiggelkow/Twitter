@@ -6,6 +6,7 @@ import {Popover} from 'primeng/popover';
 import {Dialog} from 'primeng/dialog';
 import {PostComponent} from '../post/post.component';
 import {FeedService} from '../../../service/feed.service';
+import {TweetModel} from '../../../model/tweet-model';
 
 @Component({
   selector: 'app-social-interactions',
@@ -30,6 +31,29 @@ export class SocialInteractionsComponent {
   @ViewChild('retweetPop') retweetPop!: Popover;
 
   quoteDialogVisible: boolean = false;
+  commentDialogVisible: boolean = false;
+
+  get parent(): TweetModel {
+
+    const parent = this.socialInteractions.quote;
+
+    return {
+      id: parent.postId,
+      username: parent.username,
+      text: parent.text,
+      video: "",
+      image: "",
+      countComments: "",
+      countLikes: "",
+      countRetweets: "",
+      isLiked: false,
+      isRetweeted: false,
+      retweetedByUsername: "",
+      quoteDTO: null,
+      createdAt: parent.createdAt,
+    }
+  }
+
 
   onLike(event: Event) {
     if (this.socialInteractions.isLiked) {
@@ -119,6 +143,15 @@ export class SocialInteractionsComponent {
     this.quoteDialogVisible = false;
   }
 
+  openCommentDialog(event: Event) {
+    event.stopPropagation();
+    this.commentDialogVisible = true;
+  }
+
+  closeCommentDialog() {
+    this.commentDialogVisible = false;
+  }
+
   toggleRetweetPopover(event: Event) {
     this.retweetPop.toggle(event);
     event.stopPropagation();
@@ -126,6 +159,7 @@ export class SocialInteractionsComponent {
 
   handlePost() {
     this.quoteDialogVisible = false;
+    this.commentDialogVisible = false;
     this.feedService.refreshFeed();
   }
 }

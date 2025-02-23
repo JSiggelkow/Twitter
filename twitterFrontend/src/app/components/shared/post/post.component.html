@@ -1,4 +1,13 @@
-<div class="w-full flex flex-row p-2 border-b border-gray-300 border-opacity-20" [ngClass]="{'border-none': quote}" >
+@if (parentPost && showParent) {
+  <div class="p-2 flex flex-col gap-2">
+    <app-quote [quote]="parentQuote"></app-quote>
+    <div>
+      <span class="text-sm text-gray-500">Antwort an</span>
+      <span class="text-sm text-blue-500"> &#64;{{ parentPost!.username }}</span>
+    </div>
+  </div>
+}
+<div class="w-full flex flex-row p-2 border-b border-gray-300 border-opacity-20" [ngClass]="{'border-none': quote}">
   <div class="pt-2 mr-3 h-full">
     <p-avatar icon="pi pi-user" shape="circle" size="large"/>
   </div>
@@ -10,11 +19,13 @@
     @if (quote) {
       <app-quote [quote]="quote"></app-quote>
     }
-    <div class="flex flex-row justify-between items-center border-t border-gray-300 border-opacity-20 pt-2 pb-2" [ngClass]="{'border-none': quote}">
+    <div class="flex flex-row justify-between items-center border-t border-gray-300 border-opacity-20 pt-2 pb-2"
+         [ngClass]="{'border-none': quote}">
       <div class="flex flex-row gap-4">
         <p-toast position="bottom-center" preventOpenDuplicates="true"/>
         @for (icon of icons; track icon) {
-          <i class="pi pi-{{ icon }} text-xl text-blue-500 cursor-pointer" tabindex="0" (keydown.enter)="notYetImplementedToast()" (click)="notYetImplementedToast()"></i>
+          <i class="pi pi-{{ icon }} text-xl text-blue-500 cursor-pointer" tabindex="0"
+             (keydown.enter)="notYetImplementedToast()" (click)="notYetImplementedToast()"></i>
         }
       </div>
       <div class="flex flex-row gap-4 items-center">
@@ -25,7 +36,9 @@
                'text-yellow-500': remainingChars < 100 && remainingChars >= 20,}"
           >{{ remainingChars }}</span>
         }
-        <p-button rounded [label]="postButtonLabel" icon="pi pi-send" [loading]="loading" [disabled]="remainingChars < 0 || remainingChars == maxLength" (onClick)="onPost()" (keydown.enter)="onPost()"></p-button>
+        <p-button rounded [label]="postButtonLabel" icon="pi pi-send" [loading]="loading"
+                  [disabled]="remainingChars < 0 || remainingChars == maxLength" (onClick)="onPost()"
+                  (keydown.enter)="onPost()"></p-button>
       </div>
     </div>
   </div>
