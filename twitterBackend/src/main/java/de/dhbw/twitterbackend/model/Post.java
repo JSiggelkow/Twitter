@@ -10,8 +10,8 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "tweet")
-public class Tweet {
+@Table(name = "post")
+public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tweet_id_gen")
 	@SequenceGenerator(name = "tweet_id_gen", sequenceName = "tweet_id_seq", allocationSize = 1)
@@ -33,11 +33,15 @@ public class Tweet {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "retweetid")
-	private Tweet retweetId;
+	private Post retweetId;
 
 	@ColumnDefault("now()")
 	@Column(name = "createdat", nullable = false)
 	private OffsetDateTime createdAt;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "commenton")
+	private Post commenton;
 
 	@PrePersist
 	public void prePersist() {

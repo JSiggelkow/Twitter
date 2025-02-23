@@ -22,8 +22,8 @@ public class RetweetId implements java.io.Serializable {
 	@Column(name = "userid", nullable = false)
 	private Long userId;
 
-	@Column(name = "tweetid", nullable = false)
-	private Long tweetId;
+	@Column(name = "postid", nullable = false)
+	private Long postId;
 
 	@Override
 	public boolean equals(Object o) {
@@ -31,12 +31,12 @@ public class RetweetId implements java.io.Serializable {
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
 		RetweetId entity = (RetweetId) o;
 		return Objects.equals(this.userId, entity.userId) &&
-				Objects.equals(this.tweetId, entity.tweetId);
+				Objects.equals(this.postId, entity.postId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, tweetId);
+		return Objects.hash(userId, postId);
 	}
 
 }

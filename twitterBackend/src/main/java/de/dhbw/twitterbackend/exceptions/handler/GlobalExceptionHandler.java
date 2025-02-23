@@ -1,7 +1,7 @@
 package de.dhbw.twitterbackend.exceptions.handler;
 
-import de.dhbw.twitterbackend.exceptions.TweetAlreadyRetweetedException;
-import de.dhbw.twitterbackend.exceptions.TweetNotFoundException;
+import de.dhbw.twitterbackend.exceptions.PostAlreadyRepostedException;
+import de.dhbw.twitterbackend.exceptions.PostNotFoundException;
 import de.dhbw.twitterbackend.exceptions.UserNotFoundException;
 import de.dhbw.twitterbackend.util.ErrorObject;
 import org.springframework.http.HttpStatus;
@@ -19,13 +19,13 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(buildErrorObject(HttpStatus.NOT_FOUND.value(), ex), HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(TweetNotFoundException.class)
-	public ResponseEntity<ErrorObject> handleTweetNotFoundException(TweetNotFoundException ex) {
+	@ExceptionHandler(PostNotFoundException.class)
+	public ResponseEntity<ErrorObject> handleTweetNotFoundException(PostNotFoundException ex) {
 		return new ResponseEntity<>(buildErrorObject(HttpStatus.NOT_FOUND.value(), ex), HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(TweetAlreadyRetweetedException.class)
-	public ResponseEntity<ErrorObject> handleTweetAlreadyRetweetedException(TweetAlreadyRetweetedException ex) {
+	@ExceptionHandler(PostAlreadyRepostedException.class)
+	public ResponseEntity<ErrorObject> handleTweetAlreadyRetweetedException(PostAlreadyRepostedException ex) {
 		return new ResponseEntity<>(buildErrorObject(HttpStatus.CONFLICT.value(), ex), HttpStatus.CONFLICT);
 	}
 

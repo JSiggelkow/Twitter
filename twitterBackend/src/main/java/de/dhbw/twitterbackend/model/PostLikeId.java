@@ -2,7 +2,9 @@ package de.dhbw.twitterbackend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -11,28 +13,30 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
-public class CommentLikeId implements java.io.Serializable {
+public class PostLikeId implements java.io.Serializable {
 	@Serial
-	private static final long serialVersionUID = 872487230343291588L;
+	private static final long serialVersionUID = -4911786253279269910L;
 	@Column(name = "userid", nullable = false)
 	private Long userId;
 
-	@Column(name = "commentid", nullable = false)
-	private Long commentId;
+	@Column(name = "postid", nullable = false)
+	private Long postId;
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		CommentLikeId entity = (CommentLikeId) o;
-		return Objects.equals(this.commentId, entity.commentId) &&
-				Objects.equals(this.userId, entity.userId);
+		PostLikeId entity = (PostLikeId) o;
+		return Objects.equals(this.userId, entity.userId) &&
+				Objects.equals(this.postId, entity.postId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(commentId, userId);
+		return Objects.hash(userId, postId);
 	}
 
 }

@@ -1,7 +1,7 @@
 package de.dhbw.twitterbackend.service;
 
-import de.dhbw.twitterbackend.dto.TweetDTO;
-import de.dhbw.twitterbackend.mapper.TweetMapper;
+import de.dhbw.twitterbackend.dto.PostDTO;
+import de.dhbw.twitterbackend.mapper.PostMapper;
 import de.dhbw.twitterbackend.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,45 +15,45 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FeedService {
 
-	private final TweetService tweetService;
+	private final PostService postService;
 	private final RetweetService retweetService;
-	private final TweetMapper tweetMapper;
+	private final PostMapper postMapper;
 
-	public List<TweetDTO> fetchByLimitAndAfterTime(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
+	public List<PostDTO> fetchByLimitAndAfterTime(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
 		return mergeTweetsAndRetweets(limit, timeLimit, userPrincipal);
 	}
 
-	private List<TweetDTO> getTweetsByLimitAndTimeLimit(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
-		return tweetService.getByLimitAndTimeLimit(limit, timeLimit).stream()
-				.map(tweet -> tweetMapper.toDTO(tweet, userPrincipal)).toList();
+	private List<PostDTO> getTweetsByLimitAndTimeLimit(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
+		return postService.getByLimitAndTimeLimit(limit, timeLimit).stream()
+				.map(tweet -> postMapper.toDTO(tweet, userPrincipal)).toList();
 	}
 
-	private List<TweetDTO> getRetweetsByLimitAndTimeLimit(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
+	private List<PostDTO> getRetweetsByLimitAndTimeLimit(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
 		return retweetService.getRetweetsBeforeRetweetedAtByLimit(limit, timeLimit).stream()
-				.map(retweet -> tweetMapper.toDTO(userPrincipal, retweet))
+				.map(retweet -> postMapper.toDTO(userPrincipal, retweet))
 				.toList();
 	}
 
-	private List<TweetDTO> mergeTweetsAndRetweets(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
+	private List<PostDTO> mergeTweetsAndRetweets(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
 
-		List<TweetDTO> feed = new ArrayList<>();
+		List<PostDTO> feed = new ArrayList<>();
 		feed.addAll(getTweetsByLimitAndTimeLimit(limit, timeLimit, userPrincipal));
 		feed.addAll(timeFilteredRetweets(getRetweetsByLimitAndTimeLimit(limit, timeLimit, userPrincipal), feed));
 
 		return feed.stream()
-				.sorted(Comparator.comparing(TweetDTO::createdAt).reversed())
+				.sorted(Comparator.comparing(PostDTO::createdAt).reversed())
 				.toList();
 	}
 
-	private List<TweetDTO> timeFilteredRetweets(List<TweetDTO> retweets, List<TweetDTO> tweets) {
+	private List<PostDTO> timeFilteredRetweets(List<PostDTO> retweets, List<PostDTO> tweets) {
 		return retweets.stream()
 				.filter(retweet -> retweet.createdAt().isAfter(findOldestTweetCreatedAt(tweets)))
 				.toList();
 	}
 
-	private OffsetDateTime findOldestTweetCreatedAt(List<TweetDTO> tweets) {
+	private OffsetDateTime findOldestTweetCreatedAt(List<PostDTO> tweets) {
 		return tweets.stream()
-				.map(TweetDTO::createdAt)
+				.map(PostDTO::createdAt)
 				.min(OffsetDateTime::compareTo)
 				.orElse(OffsetDateTime.now());
 	}

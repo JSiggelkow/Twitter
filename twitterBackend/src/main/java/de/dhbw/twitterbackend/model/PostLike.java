@@ -10,21 +10,21 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "tweetlikes")
-public class TweetLike {
+@Table(name = "postlikes")
+public class PostLike {
 	@SequenceGenerator(name = "tweetlikes_id_gen", sequenceName = "tweet_id_seq", allocationSize = 1)
 	@EmbeddedId
-	private TweetLikeId id;
+	private PostLikeId id;
 
 	@MapsId("userId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "userid", nullable = false)
 	private User user;
 
-	@MapsId("tweetId")
+	@MapsId("postId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "tweetid", nullable = false)
-	private Tweet tweet;
+	@JoinColumn(name = "postid", nullable = false)
+	private Post post;
 
 	@ColumnDefault("now()")
 	@Column(name = "likedat", nullable = false)

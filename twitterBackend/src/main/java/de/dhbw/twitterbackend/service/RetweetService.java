@@ -1,9 +1,9 @@
 package de.dhbw.twitterbackend.service;
 
-import de.dhbw.twitterbackend.exceptions.TweetAlreadyRetweetedException;
+import de.dhbw.twitterbackend.exceptions.PostAlreadyRepostedException;
 import de.dhbw.twitterbackend.model.Retweet;
 import de.dhbw.twitterbackend.model.RetweetId;
-import de.dhbw.twitterbackend.model.Tweet;
+import de.dhbw.twitterbackend.model.Post;
 import de.dhbw.twitterbackend.model.User;
 import de.dhbw.twitterbackend.repository.RetweetRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,33 +23,33 @@ public class RetweetService {
 		retweetRepository.save(retweet);
 	}
 
-	public void toggleRetweet(Tweet tweet, User user) {
-		if (isTweetRetweetedByUser(tweet, user)) {
-			unRetweet(tweet, user);
+	public void toggleRetweet(Post post, User user) {
+		if (isPostRetweetedByUser(post, user)) {
+			unRetweet(post, user);
 		} else {
-			retweet(tweet, user);
+			retweet(post, user);
 		}
 	}
 
-	private void retweet(Tweet tweet, User user) {
-		if (isTweetRetweetedByUser(tweet, user)) throw new TweetAlreadyRetweetedException();
+	private void retweet(Post post, User user) {
+		if (isPostRetweetedByUser(post, user)) throw new PostAlreadyRepostedException();
 		Retweet retweet = new Retweet();
-		retweet.setId(new RetweetId(user.getId(), tweet.getId()));
-		retweet.setTweet(tweet);
+		retweet.setId(new RetweetId(user.getId(), post.getId()));
+		retweet.setPost(post);
 		retweet.setUser(user);
 		save(retweet);
 	}
 
-	private void unRetweet(Tweet tweet, User user) {
-		retweetRepository.deleteById(new RetweetId(user.getId(), tweet.getId()));
+	private void unRetweet(Post post, User user) {
+		retweetRepository.deleteById(new RetweetId(user.getId(), post.getId()));
 	}
 
-	public Long countByTweet(Tweet tweet) {
-		return retweetRepository.countByTweet(tweet);
+	public Long countByTweet(Post post) {
+		return retweetRepository.countByPost(post);
 	}
 
-	public boolean isTweetRetweetedByUser(Tweet tweet, User user) {
-		return retweetRepository.existsById(new RetweetId(user.getId(), tweet.getId()));
+	public boolean isPostRetweetedByUser(Post post, User user) {
+		return retweetRepository.existsById(new RetweetId(user.getId(), post.getId()));
 	}
 
 	public List<Retweet> getRetweetsBeforeRetweetedAtByLimit(int limit, OffsetDateTime timeLimit) {

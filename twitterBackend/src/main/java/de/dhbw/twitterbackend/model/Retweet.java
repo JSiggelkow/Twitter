@@ -21,10 +21,10 @@ public class Retweet {
 	@JoinColumn(name = "userid", nullable = false)
 	private User user;
 
-	@MapsId("tweetId")
+	@MapsId("postId")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "tweetid", nullable = false)
-	private Tweet tweet;
+	@JoinColumn(name = "postid", nullable = false)
+	private Post post;
 
 	@ColumnDefault("now()")
 	@Column(name = "retweetedat", nullable = false)

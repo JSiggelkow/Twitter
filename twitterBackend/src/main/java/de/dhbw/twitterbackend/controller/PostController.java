@@ -1,8 +1,8 @@
 package de.dhbw.twitterbackend.controller;
 
-import de.dhbw.twitterbackend.dto.CreateTweetDTO;
-import de.dhbw.twitterbackend.dto.TweetDTO;
-import de.dhbw.twitterbackend.mapper.TweetMapper;
+import de.dhbw.twitterbackend.dto.CreatePostDTO;
+import de.dhbw.twitterbackend.dto.PostDTO;
+import de.dhbw.twitterbackend.mapper.PostMapper;
 import de.dhbw.twitterbackend.security.UserPrincipal;
 import de.dhbw.twitterbackend.service.*;
 import lombok.RequiredArgsConstructor;
@@ -14,31 +14,31 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tweet")
+@RequestMapping("/api/post")
 @RequiredArgsConstructor
-public class TweetController {
+public class PostController {
 
-	private final TweetService tweetService;
-	private final TweetMapper tweetMapper;
-	private final TweetLikeService tweetLikeService;
+	private final PostService postService;
+	private final PostMapper postMapper;
+	private final PostLikeService postLikeService;
 	private final RetweetService retweetService;
 	private final UserService userService;
 	private final FeedService feedService;
 
 	@PostMapping
-	public ResponseEntity<TweetDTO> postTweet(@RequestBody CreateTweetDTO createTweetDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-		return ResponseEntity.ok(tweetMapper.toDTO(
-				tweetService.postTweet(
-						tweetMapper.toTweet(createTweetDTO,userPrincipal), userPrincipal), userPrincipal));
+	public ResponseEntity<PostDTO> postTweet(@RequestBody CreatePostDTO createPostDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		return ResponseEntity.ok(postMapper.toDTO(
+				postService.postTweet(
+						postMapper.toPost(createPostDTO,userPrincipal), userPrincipal), userPrincipal));
 	}
 
 	@GetMapping("/newest")
-	public ResponseEntity<List<TweetDTO>> getNewestByLimit(@RequestParam(defaultValue = "25") int limit, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+	public ResponseEntity<List<PostDTO>> getNewestByLimit(@RequestParam(defaultValue = "25") int limit, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(feedService.fetchByLimitAndAfterTime(limit, OffsetDateTime.now(), userPrincipal));
 	}
 
 	@GetMapping("/before")
-	public ResponseEntity<List<TweetDTO>> getTweetsBeforeCreatedAtByLimit(
+	public ResponseEntity<List<PostDTO>> getTweetsBeforeCreatedAtByLimit(
 			@RequestParam OffsetDateTime createdAt,
 			@RequestParam(defaultValue = "10") int limit,
 			@AuthenticationPrincipal UserPrincipal userPrincipal) {
@@ -46,9 +46,9 @@ public class TweetController {
 	}
 
 	@PostMapping("/like")
-	public ResponseEntity<Void> toggleLike(@RequestParam long tweetId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-		tweetLikeService.toggleLike(
-				tweetService.findById(tweetId),
+	public ResponseEntity<Void> toggleLike(@RequestParam long postId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		postLikeService.toggleLike(
+				postService.findById(postId),
 				userService.findByUsername(userPrincipal.getUsername())
 		);
 
@@ -56,9 +56,9 @@ public class TweetController {
 	}
 
 	@PostMapping("/retweet")
-	public ResponseEntity<Void> toggleRetweet(@RequestParam long tweetId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+	public ResponseEntity<Void> toggleRetweet(@RequestParam long postId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		retweetService.toggleRetweet(
-				tweetService.findById(tweetId),
+				postService.findById(postId),
 				userService.findByUsername(userPrincipal.getUsername())
 		);
 
