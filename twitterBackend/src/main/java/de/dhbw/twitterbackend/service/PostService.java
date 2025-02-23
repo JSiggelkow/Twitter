@@ -33,6 +33,10 @@ public class PostService {
 		return save(post);
 	}
 
+	public List<Post> findAllByCommentOn(Post commentOn) {
+		return postRepository.findAllByCommenton(commentOn);
+	}
+
 	/**
 	 * Gets the newest Tweets in descending order by created At from the Database
 	 * this is important for the initial loading request for the main feed

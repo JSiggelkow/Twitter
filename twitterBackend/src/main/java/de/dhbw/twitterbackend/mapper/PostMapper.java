@@ -61,6 +61,9 @@ public class PostMapper {
 		if (createPostDTO.retweetId() != null) {
 			post.setRetweetId(postService.findById(createPostDTO.retweetId()));
 		}
+		if (createPostDTO.commentOn() != null) {
+			post.setCommenton(postService.findById(createPostDTO.commentOn()));
+		}
 		return post;
 	}
 }

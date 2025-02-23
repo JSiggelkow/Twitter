@@ -1,5 +1,5 @@
 package de.dhbw.twitterbackend.dto;
 
 
-public record CreatePostDTO(String text, Long retweetId) {
+public record CreatePostDTO(String text, Long retweetId, Long commentOn) {
 }

@@ -12,6 +12,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	List<Post> findByCreatedAtBeforeOrderByCreatedAtDesc(OffsetDateTime createdAt, Pageable pageable);
 
 	long countPostByCommenton(Post commentOn);
+
+	List<Post> findAllByCommenton(Post commentOn);
 }
 
 

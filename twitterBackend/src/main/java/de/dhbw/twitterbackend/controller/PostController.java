@@ -3,6 +3,7 @@ package de.dhbw.twitterbackend.controller;
 import de.dhbw.twitterbackend.dto.CreatePostDTO;
 import de.dhbw.twitterbackend.dto.PostDTO;
 import de.dhbw.twitterbackend.mapper.PostMapper;
+import de.dhbw.twitterbackend.model.Post;
 import de.dhbw.twitterbackend.security.UserPrincipal;
 import de.dhbw.twitterbackend.service.*;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class PostController {
 	private final FeedService feedService;
 
 	@PostMapping
-	public ResponseEntity<PostDTO> postTweet(@RequestBody CreatePostDTO createPostDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+	public ResponseEntity<PostDTO> post(@RequestBody CreatePostDTO createPostDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(postMapper.toDTO(
 				postService.postTweet(
 						postMapper.toPost(createPostDTO,userPrincipal), userPrincipal), userPrincipal));
@@ -43,6 +44,14 @@ public class PostController {
 			@RequestParam(defaultValue = "10") int limit,
 			@AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(feedService.fetchByLimitAndAfterTime(limit, createdAt, userPrincipal));
+	}
+
+	@GetMapping("/comments")
+	public ResponseEntity<List<PostDTO>> getCommentsForPost(@RequestParam Long parentPostId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		Post parentPost = postService.findById(parentPostId);
+		return ResponseEntity.ok(postService.findAllByCommentOn(parentPost).stream()
+				.map(comment -> postMapper.toDTO(comment, userPrincipal))
+				.toList());
 	}
 
 	@PostMapping("/like")
