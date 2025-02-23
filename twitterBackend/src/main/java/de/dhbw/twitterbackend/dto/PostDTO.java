@@ -14,5 +14,6 @@ public record PostDTO(Long id,
                       Long countRetweets,
                       Long countComments,
                       boolean isLiked,
-                      boolean isRetweeted) {
+                      boolean isRetweeted,
+                      boolean isSaved) {
 }
