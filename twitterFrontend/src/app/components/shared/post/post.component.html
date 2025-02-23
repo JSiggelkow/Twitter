@@ -1,13 +1,16 @@
-<div class="w-full flex flex-row border-b border-gray-300 border-opacity-20 p-2">
+<div class="w-full flex flex-row p-2 border-b border-gray-300 border-opacity-20" [ngClass]="{'border-none': quote}" >
   <div class="pt-2 mr-3 h-full">
     <p-avatar icon="pi pi-user" shape="circle" size="large"/>
   </div>
   <div class="flex flex-col w-full pt-2">
     <div>
-      <textarea pTextarea [(ngModel)]="text" fluid="true" placeholder="Was gibt's Neues?!" autoResize="true" rows="1"
+      <textarea pTextarea [(ngModel)]="text" fluid="true" [placeholder]="placeholder" autoResize="true" rows="1"
                 class="text-xl"></textarea>
     </div>
-    <div class="flex flex-row justify-between items-center border-t border-gray-300 border-opacity-20 pt-2 pb-2">
+    @if (quote) {
+      <app-quote [quote]="quote"></app-quote>
+    }
+    <div class="flex flex-row justify-between items-center border-t border-gray-300 border-opacity-20 pt-2 pb-2" [ngClass]="{'border-none': quote}">
       <div class="flex flex-row gap-4">
         <p-toast position="bottom-center" preventOpenDuplicates="true"/>
         @for (icon of icons; track icon) {

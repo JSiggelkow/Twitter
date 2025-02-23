@@ -14,8 +14,8 @@
             </div>
           }
           <p-toast position="bottom-center" preventOpenDuplicates="true"/>
-          @for (tweet of tweets; track tweet.id) {
-            <app-tweet [tweet]=tweet></app-tweet>
+          @for (tweet of tweets; track tweet) {
+            <app-tweet [tweet]=tweet ></app-tweet>
           }
         </p-tabpanel>
         <p-tabpanel value="1">

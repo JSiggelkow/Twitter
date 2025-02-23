@@ -11,11 +11,12 @@ import {TweetService} from '../../../service/tweet.service';
 import {TweetModel} from '../../../model/tweet-model';
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
 import {PostComponent} from '../../shared/post/post.component';
-import {TweetComponent} from '../../shared/tweet/tweet.component';
 import {Message} from 'primeng/message';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {Toast} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import {TweetComponent} from '../../shared/tweet/tweet.component';
+import {FeedService} from '../../../service/feed.service';
 
 @Component({
   selector: 'app-feed',
@@ -29,10 +30,10 @@ import {MessageService} from 'primeng/api';
     TabPanels,
     TabPanel,
     PostComponent,
-    TweetComponent,
     Message,
     ProgressSpinner,
-    Toast
+    Toast,
+    TweetComponent
   ],
   providers: [MessageService]
 })
@@ -44,14 +45,15 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private scrollContainer?: HTMLElement;
   private scrollSubscription?: Subscription;
+  private refreshFeedSubscription?: Subscription;
 
   renderer = inject(Renderer2);
   tweetService = inject(TweetService);
   messageService = inject(MessageService);
+  feedService = inject(FeedService);
 
   ngOnInit(): void {
-    this.loading = true;
-    this.loadNewest();
+    this.subscribeRefreshFeedService();
   }
 
   ngAfterViewInit(): void {
@@ -67,6 +69,7 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /* load the newest tweets on the first load of the feed with a limit */
   private loadNewest(): void {
+    this.loading = true;
     this.tweetService.newest(this.loadNewestLimit).subscribe({
       next: (tweets) => {
         this.loading = false;
@@ -126,13 +129,33 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    this.scrollSubscription?.unsubscribe();
-  }
 
   // methods gets triggered if the user posts a new tweet --> adds the new tweet to the first entry in the tweet array
   handlePost(tweet: TweetModel | null) {
    if (tweet) this.tweets.unshift(tweet);
    else this.showErrorToast();
+  }
+
+  subscribeRefreshFeedService() {
+    this.refreshFeedSubscription = this.feedService.refreshFeed$.subscribe({
+      next: () => {
+        this.loadNewest();
+        this.scrollToTop();
+      }
+    })
+  }
+
+  scrollToTop() {
+    if (this.scrollContainer) {
+      this.scrollContainer.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.scrollSubscription?.unsubscribe();
+    this.refreshFeedSubscription?.unsubscribe();
   }
 }

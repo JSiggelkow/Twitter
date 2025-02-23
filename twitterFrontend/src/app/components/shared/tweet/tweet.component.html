@@ -1,94 +1,31 @@
 @if (tweet.retweetedByUsername) {
-  <div class="flex flex-row items-center pt-2 gap-2">
-    <div class="flex items-center ml-8">
-      <i class="pi pi-sync text-sm text-gray-500"></i>
-    </div>
-    <div>
-      <span class="text-sm text-gray-500">{{ tweet.retweetedByUsername }}</span>
-      <span class="text-sm text-gray-500">&nbsp;hat repostet</span>
-    </div>
-  </div>
+    <app-retweet-label [username]="tweet.retweetedByUsername" ></app-retweet-label>
 }
-<div class="w-full flex flex-row pb-2 pr-2 pl-2" [ngClass]="{'border-b border-gray-300 border-opacity-20': !quote}">
-  <div class="pt-2 mr-3 h-full">
-    <p-avatar icon="pi pi-user" shape="circle" size="large"/>
-  </div>
-  <div class="flex flex-col w-full pt-2">
-    <div class="flex flex-row gap-4">
-      <div class="flex flex-row w-full items-center justify-between">
-        <div class="flex flex-row gap-2 items-center">
-          <span class="text-white text-lg">{{ quote ? quote.username : tweet.username }}</span>
-          <i class="pi pi-verified text-blue-500"></i>
-          <span class="text-xs text-gray-500">&#64;{{ quote ? quote.username : tweet.username }}</span>
-          <app-time-ago [createdAt]="quote? quote.createdAt : tweet.createdAt"></app-time-ago>
-        </div>
-        @if (!quote) {
-          <div>
-            <i class="pi pi-ellipsis-h text-gray-500 hover:text-blue-500"></i>
-          </div>
-        }
-      </div>
+<div class="w-full flex flex-row pb-2 pr-2 pl-2 border-b border-gray-300 border-opacity-20">
+    <div class="pt-2 mr-3 h-full">
+        <p-avatar icon="pi pi-user" shape="circle" size="large"/>
     </div>
-    <div>
-      <textarea pTextarea disabled="disabled" [value]="text" fluid="true" autoResize="true" rows="1"
+    <div class="flex flex-col w-full pt-2">
+        <div class="flex flex-row gap-4">
+            <div class="flex flex-row w-full items-center justify-between">
+                <div class="flex flex-row gap-2 items-center">
+                    <span class="text-white text-lg">{{ tweet.username }}</span>
+                    <i class="pi pi-verified text-blue-500"></i>
+                    <span class="text-xs text-gray-500">&#64;{{ tweet.username }}</span>
+                    <app-time-ago [createdAt]="tweet.createdAt"></app-time-ago>
+                </div>
+                <div>
+                    <i class="pi pi-ellipsis-h text-gray-500 hover:text-blue-500"></i>
+                </div>
+            </div>
+        </div>
+        <div>
+      <textarea pTextarea disabled="disabled" [value]="tweet.text" fluid="true" autoResize="true" rows="1"
                 class="text-md p-0"></textarea>
+        </div>
+        @if (tweet.quoteDTO) {
+            <app-quote [quote]="tweet.quoteDTO"></app-quote>
+        }
+        <app-social-interactions [socialInteractions]="socialInteractions" (socialInteractionsChange)="onSocialInteractionsChange($event)"></app-social-interactions>
     </div>
-    @if (tweet.quoteDTO) {
-      <div class="border border-gray-300 border-opacity-20 rounded-2xl mt-2 p-1">
-        <app-tweet [quote]="tweet.quoteDTO"></app-tweet>
-      </div>
-    }
-    <p-popover #retweetPop>
-      <div class="flex flex-col gap-2">
-        <div class="flex flex-row gap-2 items-center cursor-pointer" (click)="onRetweet()" (keydown.enter)="onRetweet()">
-          <i class="pi pi-sync"></i>
-          @if (tweet.isRetweeted) {
-            <span>Repost rückgängig machen</span>
-          } @else {
-            <span>Reposten</span>
-          }
-        </div>
-        <div class="flex flex-row gap-2 items-center cursor-pointer">
-          <i class="pi pi-pen-to-square"></i>
-          <span>Zitieren</span>
-        </div>
-      </div>
-    </p-popover>
-    @if (!quote) {
-      <div class="flex flex-row justify-between items-center mt-2">
-        <div class="flex flex-row gap-1 items-center cursor-pointer group">
-          <i class="pi pi-comment text-md text-gray-500 group-hover:text-blue-500"></i>
-          <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ tweet.countComments }}</span>
-        </div>
-        <div class="flex flex-row gap-1 items-center group" (click)="retweetPop.toggle($event)"
-             (keydown.enter)="retweetPop.toggle($event)">
-          <i class="pi pi-sync text-md" [ngClass]="{
-        'group-hover:text-green-500 text-gray-500': !tweet.isRetweeted,
-          'group-hover:text-gray-500 text-green-500': tweet.isRetweeted}"></i>
-          <span class="text-xs" [ngClass]="{
-        'group-hover:text-green-500 text-gray-500': !tweet.isRetweeted,
-          'group-hover:text-gray-500 text-green-500': tweet.isRetweeted}">{{ tweet.countRetweets }}</span>
-        </div>
-        <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="onLike()"
-             (keydown.enter)="onLike()">
-          <i class="pi pi-heart text-md"
-             [ngClass]="{
-           'group-hover:text-pink-600 text-gray-500': !tweet.isLiked,
-           'group-hover:text-gray-500 text-pink-600': tweet.isLiked}"></i>
-          <span class="text-xs"
-                [ngClass]="{
-              'group-hover:text-pink-600 text-gray-500': !tweet.isLiked,
-              'group-hover:text-gray-500 text-pink-600': tweet.isLiked}">{{ tweet.countLikes }}</span>
-        </div>
-        <div class="flex flex-row gap-1 items-center cursor-pointer group">
-          <i class="pi pi-chart-bar text-md text-gray-500 group-hover:text-blue-500"></i>
-          <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ viewsCount }}</span>
-        </div>
-        <div class="flex flex-row gap-2 items-center">
-          <i class="pi pi-bookmark text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
-          <i class="pi pi-upload text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
-        </div>
-      </div>
-    }
-  </div>
 </div>

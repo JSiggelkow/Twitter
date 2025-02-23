@@ -1,0 +1,21 @@
+<div class="w-full flex flex-row pb-2 pr-2 pl-2 border border-gray-300 border-opacity-20 rounded-xl">
+  <div class="pt-2 mr-3 h-full">
+    <p-avatar icon="pi pi-user" shape="circle" size="large"/>
+  </div>
+  <div class="flex flex-col w-full pt-2">
+    <div class="flex flex-row gap-4">
+      <div class="flex flex-row w-full items-center justify-between">
+        <div class="flex flex-row gap-2 items-center">
+          <span class="text-white text-lg">{{ quote.username }}</span>
+          <i class="pi pi-verified text-blue-500"></i>
+          <span class="text-xs text-gray-500">&#64;{{ quote.username }}</span>
+          <app-time-ago [createdAt]="quote.createdAt"></app-time-ago>
+        </div>
+      </div>
+    </div>
+    <div>
+      <textarea pTextarea disabled="disabled" [value]="quote.text" fluid="true" autoResize="true" rows="1"
+                class="text-md p-0"></textarea>
+    </div>
+  </div>
+</div>

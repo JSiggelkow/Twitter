@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
 import {Textarea} from 'primeng/textarea';
 import {Button} from 'primeng/button';
@@ -8,6 +8,8 @@ import {Toast} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {TweetService} from '../../../service/tweet.service';
 import {TweetModel} from '../../../model/tweet-model';
+import {QuoteModel} from '../../../model/quote-model';
+import {QuoteComponent} from '../quote/quote.component';
 
 @Component({
   selector: 'app-post',
@@ -18,7 +20,8 @@ import {TweetModel} from '../../../model/tweet-model';
     ReactiveFormsModule,
     FormsModule,
     NgClass,
-    Toast
+    Toast,
+    QuoteComponent,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
@@ -34,6 +37,9 @@ export class PostComponent {
   maxLength = 200;
   loading: boolean = false;
 
+  @Input() placeholder: string = "Was gibt's Neues?!"
+
+  @Input() quote?: QuoteModel;
   @Output() posted: EventEmitter<TweetModel | null> = new EventEmitter<TweetModel | null>();
 
 
@@ -56,7 +62,7 @@ export class PostComponent {
   }
 
   post() {
-    this.tweetService.post({text: this.text, retweetId: null}).subscribe({
+    this.tweetService.post({text: this.text, retweetId: this.quote ? this.quote.tweetId : null}).subscribe({
       next: (tweet) => {
         this.loading = false;
         this.text = '';

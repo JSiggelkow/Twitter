@@ -697,7 +697,9 @@ const MyPreset = definePreset(Aura, {
         background: "#121212",
         color: "#ffffff"
       }
-
+    },
+    dialog: {
+      background: "#121212",
     }
   }
 });
