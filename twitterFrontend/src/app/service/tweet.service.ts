@@ -28,6 +28,10 @@ export class TweetService {
     return this.http.get<StatusModel>(`http://localhost:8080/api/post/status?parentPostId=${tweetId}`, {withCredentials: true});
   }
 
+  statusBefore(tweetId: string, createdAt: string) {
+    return this.http.get<StatusModel>(`http://localhost:8080/api/post/status?parentPostId=${tweetId}&createdAt=${createdAt}`, {withCredentials: true});
+  }
+
   toggleLike(tweetId: string) {
     return this.http.post(`http://localhost:8080/api/post/like?postId=${tweetId}`, {}, {withCredentials: true});
   }

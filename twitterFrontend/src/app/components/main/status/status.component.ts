@@ -4,12 +4,16 @@ import {TweetService} from '../../../service/tweet.service';
 import {TweetModel} from '../../../model/tweet-model';
 import {Location} from '@angular/common';
 import {PostComponent} from '../../shared/post/post.component';
+import {ProgressSpinner} from 'primeng/progressspinner';
+import {PostSkeletonComponent} from '../../shared/post-skeleton/post-skeleton.component';
 
 @Component({
   selector: 'app-status',
   imports: [
     TweetComponent,
-    PostComponent
+    PostComponent,
+    ProgressSpinner,
+    PostSkeletonComponent
   ],
   templateUrl: './status.component.html',
   styleUrl: './status.component.scss'
@@ -56,5 +60,17 @@ export class StatusComponent implements OnChanges {
 
   onCommented() {
     this.loadStatus()
+  }
+
+  loadMore() {
+    if (!this.parent || !this.comments) return;
+    this.tweetService.statusBefore(this.parentId, this.comments[this.comments.length - 1].createdAt).subscribe({
+      next: status => {
+        this.comments = [...this.comments!, ...status.comments]
+        this.parent = status.parent;
+      },
+      error: () => {
+      }
+    })
   }
 }

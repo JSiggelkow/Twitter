@@ -1,12 +1,17 @@
 <div class="w-full flex flex-col">
   <div class="w-full flex flex-row items-center p-2">
-    <i class="pi pi-arrow-left text-xl mr-6 cursor-pointer hover:text-blue-500" (click)="routeBack()" (keydown.enter)="routeBack()"></i>
+    <i class="pi pi-arrow-left text-xl mr-6 cursor-pointer hover:text-blue-500" (click)="routeBack()"
+       (keydown.enter)="routeBack()"></i>
     <span class="text-2xl">Post</span>
   </div>
   <div>
     @if (parent) {
       <app-tweet [tweet]="parent!"></app-tweet>
     }
+    @if (loading && !parent) {
+      <app-post-skeleton></app-post-skeleton>
+    }
+
   </div>
   <div>
     <app-post
@@ -20,5 +25,16 @@
     @for (comment of comments; track comment) {
       <app-tweet [tweet]="comment!"></app-tweet>
     }
+    @if (loading) {
+      <div class="w-full flex justify-center items-center">
+        <p-progress-spinner ariaLabel="loading" strokeWidth="8" animationDuration=".5s" class="mt-4"
+                            [style]="{width: '50px', height: '50px', stroke: 'blue'}"/>
+      </div>
+    }
   </div>
+  @if (parent && comments && +parent.countComments > comments.length) {
+    <div class="flex justify-center items-center cursor-pointer p-2" (click)="loadMore()" (keydown.enter)="loadMore()">
+      <span class="text-blue-500">Mehr laden</span>
+    </div>
+  }
 </div>
