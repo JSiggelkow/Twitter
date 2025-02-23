@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {TweetModel} from '../model/tweet-model';
 import {CreateTweetModel} from '../model/create-tweet-model';
+import {StatusModel} from '../model/status-model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class TweetService {
 
   before(createdAd: string) {
     return this.http.get<TweetModel[]>(`http://localhost:8080/api/post/before?createdAt=${createdAd}`, {withCredentials: true});
+  }
+
+  status(tweetId: string) {
+    return this.http.get<StatusModel>(`http://localhost:8080/api/post/status?parentPostId=${tweetId}`, {withCredentials: true});
   }
 
   toggleLike(tweetId: string) {
