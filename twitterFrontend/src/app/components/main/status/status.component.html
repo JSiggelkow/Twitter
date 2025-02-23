@@ -9,7 +9,12 @@
     }
   </div>
   <div>
-    <app-post placeholder="Deine Antwort posten" [parentPost]="parent" postButtonLabel="Antworten"></app-post>
+    <app-post
+      placeholder="Deine Antwort posten"
+      postButtonLabel="Antworten"
+      [parentPost]="parent"
+      (posted)="onCommented()"
+    ></app-post>
   </div>
   <div>
     @for (comment of comments; track comment) {

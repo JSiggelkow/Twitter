@@ -53,4 +53,8 @@ export class StatusComponent implements OnChanges {
   routeBack() {
     this._location.back();
   }
+
+  onCommented() {
+    this.loadStatus()
+  }
 }
