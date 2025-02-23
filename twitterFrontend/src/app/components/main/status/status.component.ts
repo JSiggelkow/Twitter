@@ -2,10 +2,10 @@ import {Component, inject, Input, OnChanges, SimpleChanges} from '@angular/core'
 import {TweetComponent} from '../../shared/tweet/tweet.component';
 import {TweetService} from '../../../service/tweet.service';
 import {TweetModel} from '../../../model/tweet-model';
-import {Location} from '@angular/common';
 import {PostComponent} from '../../shared/post/post.component';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {PostSkeletonComponent} from '../../shared/post-skeleton/post-skeleton.component';
+import {RouteBackHeaderComponent} from '../../shared/route-back-header/route-back-header.component';
 
 @Component({
   selector: 'app-status',
@@ -13,7 +13,8 @@ import {PostSkeletonComponent} from '../../shared/post-skeleton/post-skeleton.co
     TweetComponent,
     PostComponent,
     ProgressSpinner,
-    PostSkeletonComponent
+    PostSkeletonComponent,
+    RouteBackHeaderComponent
   ],
   templateUrl: './status.component.html',
   styleUrl: './status.component.scss'
@@ -21,7 +22,6 @@ import {PostSkeletonComponent} from '../../shared/post-skeleton/post-skeleton.co
 export class StatusComponent implements OnChanges {
 
   tweetService = inject(TweetService);
-  _location = inject(Location)
 
   @Input()
   set id(id: string) {
@@ -52,10 +52,6 @@ export class StatusComponent implements OnChanges {
         this.loading = false;
       }
     })
-  }
-
-  routeBack() {
-    this._location.back();
   }
 
   onCommented() {

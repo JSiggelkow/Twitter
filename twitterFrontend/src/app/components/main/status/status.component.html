@@ -1,9 +1,5 @@
 <div class="w-full flex flex-col">
-  <div class="w-full flex flex-row items-center p-2">
-    <i class="pi pi-arrow-left text-xl mr-6 cursor-pointer hover:text-blue-500" (click)="routeBack()"
-       (keydown.enter)="routeBack()"></i>
-    <span class="text-2xl">Post</span>
-  </div>
+  <app-route-back-header title="Post"></app-route-back-header>
   <div>
     @if (parent) {
       <app-tweet [tweet]="parent!"></app-tweet>
