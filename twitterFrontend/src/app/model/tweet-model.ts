@@ -1,3 +1,5 @@
+import {QuoteModel} from './quote-model';
+
 export interface TweetModel {
   id: string;
   text: string;
@@ -5,7 +7,7 @@ export interface TweetModel {
   image: string;
   username: string;
   retweetedByUsername: string;
-  retweetID: string;
+  quoteDTO: QuoteModel | null;
   createdAt: string;
   countLikes: string;
   countRetweets: string;

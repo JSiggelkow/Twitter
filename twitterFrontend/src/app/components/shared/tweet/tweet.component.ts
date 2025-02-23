@@ -7,6 +7,7 @@ import {TimeAgoComponent} from '../time-ago/time-ago.component';
 import {TweetService} from '../../../service/tweet.service';
 import {NgClass} from '@angular/common';
 import {Popover} from 'primeng/popover';
+import {QuoteModel} from '../../../model/quote-model';
 
 
 @Component({
@@ -27,11 +28,29 @@ export class TweetComponent {
 
   viewsCount = 12345;
 
-  @Input() quote: boolean = false;
+  @Input() quote: QuoteModel | null = null;
 
-  @Input() tweet!: TweetModel;
+  @Input() tweet: TweetModel = {
+    id: "",
+    text: "",
+    video: "",
+    image: "",
+    username: "",
+    retweetedByUsername: "",
+    quoteDTO: null,
+    createdAt: "",
+    countLikes: "",
+    countRetweets: "",
+    countComments: "",
+    isLiked: false,
+    isRetweeted: false
+  };
 
   tweetService = inject(TweetService);
+
+  get text(): string {
+  return this.quote ? this.quote.text : this.tweet.text;
+  }
 
   onLike() {
     if (this.tweet.isLiked) {

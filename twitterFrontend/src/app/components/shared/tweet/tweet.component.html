@@ -9,7 +9,7 @@
     </div>
   </div>
 }
-<div class="w-full flex flex-row pb-2 pr-2 pl-2 border-b border-gray-300 border-opacity-20">
+<div class="w-full flex flex-row pb-2 pr-2 pl-2" [ngClass]="{'border-b border-gray-300 border-opacity-20': !quote}">
   <div class="pt-2 mr-3 h-full">
     <p-avatar icon="pi pi-user" shape="circle" size="large"/>
   </div>
@@ -17,10 +17,10 @@
     <div class="flex flex-row gap-4">
       <div class="flex flex-row w-full items-center justify-between">
         <div class="flex flex-row gap-2 items-center">
-          <span class="text-white text-lg">{{ tweet.username }}</span>
+          <span class="text-white text-lg">{{ quote ? quote.username : tweet.username }}</span>
           <i class="pi pi-verified text-blue-500"></i>
-          <span class="text-xs text-gray-500">&#64;{{ tweet.username }}</span>
-          <app-time-ago [createdAt]="tweet.createdAt"></app-time-ago>
+          <span class="text-xs text-gray-500">&#64;{{ quote ? quote.username : tweet.username }}</span>
+          <app-time-ago [createdAt]="quote? quote.createdAt : tweet.createdAt"></app-time-ago>
         </div>
         @if (!quote) {
           <div>
@@ -30,13 +30,17 @@
       </div>
     </div>
     <div>
-      <textarea pTextarea disabled="true" [(ngModel)]="tweet.text" fluid="true" autoResize="true" rows="1"
+      <textarea pTextarea disabled="disabled" [value]="text" fluid="true" autoResize="true" rows="1"
                 class="text-md p-0"></textarea>
     </div>
+    @if (tweet.quoteDTO) {
+      <div class="border border-gray-300 border-opacity-20 rounded-2xl mt-2 p-1">
+        <app-tweet [quote]="tweet.quoteDTO"></app-tweet>
+      </div>
+    }
     <p-popover #retweetPop>
       <div class="flex flex-col gap-2">
-        <div class="flex flex-row gap-2 items-center cursor-pointer" (click)="onRetweet()"
-             (keydown.enter)="onRetweet()">
+        <div class="flex flex-row gap-2 items-center cursor-pointer" (click)="onRetweet()" (keydown.enter)="onRetweet()">
           <i class="pi pi-sync"></i>
           @if (tweet.isRetweeted) {
             <span>Repost rückgängig machen</span>
