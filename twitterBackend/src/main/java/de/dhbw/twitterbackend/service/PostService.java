@@ -33,8 +33,8 @@ public class PostService {
 		return save(post);
 	}
 
-	public List<Post> findAllByCommentOn(Post commentOn) {
-		return postRepository.findAllByCommenton(commentOn);
+	public List<Post> findAllByCommentOn(Post parent, OffsetDateTime timeLimit, int limit) {
+		return postRepository.findAllCommentsByParentPostAndCreatedAtBefore(parent, timeLimit, PageRequest.of(0, limit));
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class PostService {
 	 *
 	 */
 	public List<Post> getByLimitAndTimeLimit(int limit, OffsetDateTime timeLimit) {
-		return postRepository.findByCreatedAtBeforeOrderByCreatedAtDesc(timeLimit ,PageRequest.of(0, limit));
+		return postRepository.findAllNonCommentPostsByCreatedAtBefore(timeLimit ,PageRequest.of(0, limit));
 	}
 
 	public Long countPostsByCommentOn(Post commentOn) {

@@ -33,7 +33,7 @@ public class PostController {
 	public ResponseEntity<PostDTO> post(@RequestBody CreatePostDTO createPostDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(postMapper.toDTO(
 				postService.postTweet(
-						postMapper.toPost(createPostDTO,userPrincipal), userPrincipal), userPrincipal));
+						postMapper.toPost(createPostDTO, userPrincipal), userPrincipal), userPrincipal));
 	}
 
 	@GetMapping("/newest")
@@ -50,9 +50,19 @@ public class PostController {
 	}
 
 	@GetMapping("/status")
-	public ResponseEntity<StatusDTO> getCommentsForPost(@RequestParam Long parentPostId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+	public ResponseEntity<StatusDTO> getCommentsForPost(
+			@RequestParam Long parentPostId,
+			@RequestParam(required = false) OffsetDateTime createdAt,
+			@RequestParam(defaultValue = "20") int limit,
+			@AuthenticationPrincipal UserPrincipal userPrincipal) {
+
 		Post parentPost = postService.findById(parentPostId);
-		return ResponseEntity.ok(statusMapper.toDTO(parentPost, userPrincipal));
+
+		return ResponseEntity.ok(statusMapper.toDTO(
+				parentPost,
+				createdAt == null ? OffsetDateTime.now() : createdAt,
+				limit, userPrincipal
+		));
 	}
 
 	@PostMapping("/like")
