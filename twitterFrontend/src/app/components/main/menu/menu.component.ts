@@ -22,16 +22,16 @@ export class MenuComponent {
 
   messageService = inject(MessageService);
 
-  menuItems: { title: string, iconClass: string }[] = [
-    {title: 'Startseite', iconClass: 'pi pi-home'},
-    {title: 'Entdecken', iconClass: 'pi pi-search'},
-    {title: 'Mitteilungen', iconClass: 'pi pi-bell'},
-    {title: 'Nachrichten', iconClass: 'pi pi-envelope'},
-    {title: 'Lesezeichen', iconClass: 'pi pi-bookmark'},
-    {title: 'Communities', iconClass: 'pi pi-users'},
-    {title: 'Premium', iconClass: 'pi pi-star'},
-    {title: 'Profil', iconClass: 'pi pi-user'},
-    {title: 'Mehr', iconClass: 'pi pi-ellipsis-h'}
+  menuItems: { title: string, iconClass: string, routeToPath: string }[] = [
+    {title: 'Startseite', iconClass: 'pi pi-home', routeToPath: '/home'},
+    {title: 'Entdecken', iconClass: 'pi pi-search', routeToPath: ''},
+    {title: 'Mitteilungen', iconClass: 'pi pi-bell', routeToPath: ''},
+    {title: 'Nachrichten', iconClass: 'pi pi-envelope', routeToPath: ''},
+    {title: 'Lesezeichen', iconClass: 'pi pi-bookmark', routeToPath: '/saved'},
+    {title: 'Communities', iconClass: 'pi pi-users', routeToPath: ''},
+    {title: 'Premium', iconClass: 'pi pi-star', routeToPath: ''},
+    {title: 'Profil', iconClass: 'pi pi-user', routeToPath: ''},
+    {title: 'Mehr', iconClass: 'pi pi-ellipsis-h', routeToPath: ''}
   ];
 
 

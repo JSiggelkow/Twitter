@@ -5,6 +5,7 @@ import {authGuard} from './guards/auth.guard';
 import {SignupComponent} from './components/signup/signup.component';
 import {FeedComponent} from './components/main/feed/feed.component';
 import {StatusComponent} from './components/main/status/status.component';
+import {SavedComponent} from './components/main/saved/saved.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -20,6 +21,10 @@ export const routes: Routes = [
       {
         path: 'status/:id',
         component: StatusComponent
+      },
+      {
+        path: 'saved',
+        component: SavedComponent
       }
     ]
   },

@@ -52,7 +52,7 @@ export class TweetComponent {
         createdAt: this.tweet.createdAt,
         username: this.tweet.username,
       },
-      viewsCount: 53921, //hardcoded
+      viewsCount: 21, //hardcoded
       countComments: +this.tweet.countComments,
       countLikes: +this.tweet.countLikes,
       countRetweets: +this.tweet.countRetweets,
