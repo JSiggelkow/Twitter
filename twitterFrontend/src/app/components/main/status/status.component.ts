@@ -3,11 +3,13 @@ import {TweetComponent} from '../../shared/tweet/tweet.component';
 import {TweetService} from '../../../service/tweet.service';
 import {TweetModel} from '../../../model/tweet-model';
 import {Location} from '@angular/common';
+import {PostComponent} from '../../shared/post/post.component';
 
 @Component({
   selector: 'app-status',
   imports: [
-    TweetComponent
+    TweetComponent,
+    PostComponent
   ],
   templateUrl: './status.component.html',
   styleUrl: './status.component.scss'

@@ -10,6 +10,7 @@ import {TweetService} from '../../../service/tweet.service';
 import {TweetModel} from '../../../model/tweet-model';
 import {QuoteModel} from '../../../model/quote-model';
 import {QuoteComponent} from '../quote/quote.component';
+import {CreateTweetModel} from '../../../model/create-tweet-model';
 
 @Component({
   selector: 'app-post',
@@ -37,9 +38,11 @@ export class PostComponent {
   maxLength = 200;
   loading: boolean = false;
 
-  @Input() placeholder: string = "Was gibt's Neues?!"
+  @Input() placeholder: string = "Was gibt's Neues?!";
+  @Input() postButtonLabel: string = "Posten";
 
   @Input() quote?: QuoteModel;
+  @Input() parentPost?: TweetModel;
   @Output() posted: EventEmitter<TweetModel | null> = new EventEmitter<TweetModel | null>();
 
 
@@ -56,13 +59,21 @@ export class PostComponent {
     return this.maxLength - (this.text?.length || 0);
   }
 
+  get postModel(): CreateTweetModel {
+    return {
+      text: this.text,
+      retweetId: this.quote ? this.quote.postId : null,
+      commentOn: this.parentPost ? this.parentPost.id : null
+    }
+  }
+
   onPost() {
     this.loading = true;
     this.post();
   }
 
   post() {
-    this.tweetService.post({text: this.text, retweetId: this.quote ? this.quote.postId : null, commentOn: null}).subscribe({
+    this.tweetService.post(this.postModel).subscribe({
       next: (tweet) => {
         this.loading = false;
         this.text = '';
