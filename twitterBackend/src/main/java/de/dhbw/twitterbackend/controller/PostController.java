@@ -28,6 +28,7 @@ public class PostController {
 	private final UserService userService;
 	private final FeedService feedService;
 	private final StatusMapper statusMapper;
+	private final SaveService saveService;
 
 	@PostMapping
 	public ResponseEntity<PostDTO> post(@RequestBody CreatePostDTO createPostDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
@@ -78,6 +79,16 @@ public class PostController {
 	@PostMapping("/retweet")
 	public ResponseEntity<Void> toggleRetweet(@RequestParam long postId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		retweetService.toggleRetweet(
+				postService.findById(postId),
+				userService.findByUsername(userPrincipal.getUsername())
+		);
+
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/save")
+	public ResponseEntity<Void> toggleSave(@RequestParam long postId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+		saveService.toggleSave(
 				postService.findById(postId),
 				userService.findByUsername(userPrincipal.getUsername())
 		);
