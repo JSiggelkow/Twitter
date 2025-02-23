@@ -18,7 +18,7 @@ import {TimeAgoComponent} from '../time-ago/time-ago.component';
 export class QuoteComponent {
 
   @Input() quote: QuoteModel = {
-    tweetId : "",
+    postId : "",
     text : "",
     username : "",
     createdAt : ""

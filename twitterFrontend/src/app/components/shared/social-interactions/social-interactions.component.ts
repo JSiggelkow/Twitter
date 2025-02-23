@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output, ViewChild} from '@angular/core';
 import {SocialInteractionsModel} from '../../../model/social-interactions-model';
 import {NgClass} from '@angular/common';
 import {TweetService} from '../../../service/tweet.service';
@@ -27,14 +27,17 @@ export class SocialInteractionsComponent {
   @Input() socialInteractions!: SocialInteractionsModel;
   @Output() socialInteractionsChange: EventEmitter<SocialInteractionsModel> = new EventEmitter<SocialInteractionsModel>();
 
+  @ViewChild('retweetPop') retweetPop!: Popover;
+
   quoteDialogVisible: boolean = false;
 
-  onLike() {
+  onLike(event: Event) {
     if (this.socialInteractions.isLiked) {
       this.unlike();
     } else {
       this.like();
     }
+    event.stopPropagation();
   }
 
   like() {
@@ -114,6 +117,11 @@ export class SocialInteractionsComponent {
 
   closeQuoteDialog() {
     this.quoteDialogVisible = false;
+  }
+
+  toggleRetweetPopover(event: Event) {
+    this.retweetPop.toggle(event);
+    event.stopPropagation();
   }
 
   handlePost() {

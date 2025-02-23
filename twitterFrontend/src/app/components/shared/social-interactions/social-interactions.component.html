@@ -1,9 +1,9 @@
 <div class="flex flex-row justify-between items-center mt-2">
-  <div class="flex flex-row gap-1 items-center cursor-pointer group">
+  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
     <i class="pi pi-comment text-md text-gray-500 group-hover:text-blue-500"></i>
     <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ socialInteractions.countComments }}</span>
   </div>
-  <div class="flex flex-row gap-1 items-center group" (click)="retweetPop.toggle($event)"
+  <div class="flex flex-row gap-1 items-center group" (click)="toggleRetweetPopover($event)"
        (keydown.enter)="retweetPop.toggle($event)">
     <i class="pi pi-sync text-md" [ngClass]="{
         'group-hover:text-green-500 text-gray-500': !socialInteractions.isRetweeted,
@@ -12,8 +12,8 @@
         'group-hover:text-green-500 text-gray-500': !socialInteractions.isRetweeted,
           'group-hover:text-gray-500 text-green-500': socialInteractions.isRetweeted}">{{ socialInteractions.countRetweets }}</span>
   </div>
-  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="onLike()"
-       (keydown.enter)="onLike()">
+  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="onLike($event)"
+       (keydown.enter)="onLike($event)">
     <i class="pi pi-heart text-md"
        [ngClass]="{
            'group-hover:text-pink-600 text-gray-500': !socialInteractions.isLiked,
@@ -23,11 +23,11 @@
               'group-hover:text-pink-600 text-gray-500': !socialInteractions.isLiked,
               'group-hover:text-gray-500 text-pink-600': socialInteractions.isLiked}">{{ socialInteractions.countLikes }}</span>
   </div>
-  <div class="flex flex-row gap-1 items-center cursor-pointer group">
+  <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
     <i class="pi pi-chart-bar text-md text-gray-500 group-hover:text-blue-500"></i>
     <span class="text-xs text-gray-500 group-hover:text-blue-500">{{ socialInteractions.viewsCount }}</span>
   </div>
-  <div class="flex flex-row gap-2 items-center">
+  <div class="flex flex-row gap-2 items-center" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
     <i class="pi pi-bookmark text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
     <i class="pi pi-upload text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
   </div>
@@ -56,7 +56,9 @@
   [modal]="true"
   dismissableMask="true"
   [(visible)]="quoteDialogVisible"
-  [styleClass]="'w-full lg:max-w-xl md:max-w-lg max-w-md'">
+  [styleClass]="'w-full lg:max-w-xl md:max-w-lg max-w-md'"
+  (click)="$event.stopPropagation()"
+  (keydown.enter)="$event.stopPropagation()">
   <ng-template #headless>
     <div class="flex flex-col">
       <div class="flex flex-row justify-start pt-2 pl-2" (click)="closeQuoteDialog()" (keydown.enter)="closeQuoteDialog()">

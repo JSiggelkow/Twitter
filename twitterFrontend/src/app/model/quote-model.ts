@@ -1,6 +1,6 @@
 export interface QuoteModel {
-  tweetId: string;
+  createdAt: string;
+  postId: string;
   text: string;
   username: string;
-  createdAt: string;
 }
