@@ -39,7 +39,8 @@ export class TweetComponent {
     countRetweets: "",
     countComments: "",
     isLiked: false,
-    isRetweeted: false
+    isRetweeted: false,
+    isSaved: false,
   };
 
   get socialInteractions(): SocialInteractionsModel {
@@ -56,7 +57,8 @@ export class TweetComponent {
       countLikes: +this.tweet.countLikes,
       countRetweets: +this.tweet.countRetweets,
       isLiked: this.tweet.isLiked,
-      isRetweeted: this.tweet.isRetweeted
+      isRetweeted: this.tweet.isRetweeted,
+      isSaved: this.tweet.isSaved
     }
   }
 
@@ -65,9 +67,10 @@ export class TweetComponent {
       ...this.tweet,
       isLiked: updated.isLiked,
       isRetweeted: updated.isRetweeted,
+      isSaved: updated.isSaved,
       countLikes: updated.countLikes.toString(),
       countRetweets: updated.countRetweets.toString(),
-      countComments: updated.countComments.toString()
+      countComments: updated.countComments.toString(),
     };
 
   }

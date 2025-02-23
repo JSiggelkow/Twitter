@@ -14,4 +14,5 @@ export interface TweetModel {
   countComments: string;
   isLiked: boolean;
   isRetweeted: boolean;
+  isSaved: boolean;
 }

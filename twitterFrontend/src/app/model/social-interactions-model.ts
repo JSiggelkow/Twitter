@@ -8,5 +8,6 @@ export interface SocialInteractionsModel {
   countLikes: number,
   viewsCount: number,
   isRetweeted: boolean,
-  isLiked: boolean
+  isLiked: boolean,
+  isSaved: boolean
 }

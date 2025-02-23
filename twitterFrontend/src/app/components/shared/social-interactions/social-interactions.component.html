@@ -15,10 +15,10 @@
   </div>
   <div class="flex flex-row gap-1 items-center cursor-pointer group" (click)="onLike($event)"
        (keydown.enter)="onLike($event)">
-    <i class="pi pi-heart text-md"
+    <i class="pi text-md"
        [ngClass]="{
-           'group-hover:text-pink-600 text-gray-500': !socialInteractions.isLiked,
-           'group-hover:text-gray-500 text-pink-600': socialInteractions.isLiked}"></i>
+           'group-hover:text-pink-600 text-gray-500 pi-heart': !socialInteractions.isLiked,
+           'group-hover:text-gray-500 text-pink-600 pi-heart-fill': socialInteractions.isLiked}"></i>
     <span class="text-xs"
           [ngClass]="{
               'group-hover:text-pink-600 text-gray-500': !socialInteractions.isLiked,
@@ -31,7 +31,11 @@
   </div>
   <div class="flex flex-row gap-2 items-center" (click)="$event.stopPropagation()"
        (keydown.enter)="$event.stopPropagation()">
-    <i class="pi pi-bookmark text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
+    <i class="pi text-md cursor-pointer"
+       [ngClass]="{
+            'hover:text-blue-500 text-gray-500 pi-bookmark': !socialInteractions.isSaved,
+            'hover:text-gray-500 text-blue-500 pi-bookmark-fill': socialInteractions.isSaved}"
+       (click)="onSave($event)" (keydown.enter)="onSave($event)"></i>
     <i class="pi pi-upload text-md cursor-pointer hover:text-blue-500 text-gray-500"></i>
   </div>
 </div>

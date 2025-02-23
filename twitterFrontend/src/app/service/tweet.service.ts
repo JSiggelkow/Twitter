@@ -39,5 +39,9 @@ export class TweetService {
   toggleRetweet(tweetId: string) {
     return this.http.post(`http://localhost:8080/api/post/retweet?postId=${tweetId}`, {}, {withCredentials: true});
   }
+
+  toggleSave(tweetId: string) {
+    return this.http.post(`http://localhost:8080/api/post/save?postId=${tweetId}`, {}, {withCredentials: true});
+  }
 }
 

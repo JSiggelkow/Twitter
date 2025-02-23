@@ -48,6 +48,7 @@ export class SocialInteractionsComponent {
       countRetweets: "",
       isLiked: false,
       isRetweeted: false,
+      isSaved: false,
       retweetedByUsername: "",
       quoteDTO: null,
       createdAt: parent.createdAt,
@@ -133,6 +134,39 @@ export class SocialInteractionsComponent {
       }
     })
 
+  }
+
+  onSave(event: Event) {
+    if (this.socialInteractions.isSaved) {
+      this.unSave();
+    } else {
+      this.save();
+    }
+    event.stopPropagation();
+  }
+
+  save() {
+    this.tweetService.toggleSave(this.socialInteractions.tweetId).subscribe({
+      next: () => {
+        const updated = {
+          ...this.socialInteractions,
+          isSaved: true
+        }
+        this.socialInteractionsChange.emit(updated);
+      }
+    })
+  }
+
+  unSave() {
+    this.tweetService.toggleSave(this.socialInteractions.tweetId).subscribe({
+      next: () => {
+        const updated = {
+          ...this.socialInteractions,
+          isSaved: false
+        }
+        this.socialInteractionsChange.emit(updated);
+      }
+    })
   }
 
   openQuoteDialog() {
