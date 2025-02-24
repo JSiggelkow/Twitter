@@ -23,7 +23,7 @@ Um diese Grundanforderungen umzusetzen mussten weitere Anforderungen definiert w
 
 ### Out of Scope
 * Es müssen keine Bilder, Videos o.ä hochgeladen werden können.
-* Posts, Kommentare und Zitate müssen nicht gelöscht werden können.
+* Posts, Kommentare und Zitate müssen nicht gelöscht oder bearbeitet werden können.
 * Es muss kein professioneller Login / Signup erstellt werden.
 * Es müssen keine Benutzereinstellungen (z.B. Username oder Profilbild ändern) implementiert werden.
 * Es muss keine Feed-Strategie (Algorithmus) entwickelt werden, die steuert wie und welche Posts angezeigt werden.
@@ -41,7 +41,7 @@ Aus Kosten- und Komplexitätsgründen gibt es jedoch teilweise Abweichungen:
 ### Abweichungen zum ACD
 * PrimeNG als Component-Library → Weil Angular-Material schon zu oft benutzt und ich wollte mal eine andere Library ausprobieren
 * PostgreSQL als Datenbank
-* Tailwind als CSS Library → Weil nicht das Aussehen, sondern die Funktionalität im Vordergrund steht und ich so schneller und effektiver CSS im HTML Code nutzen konnte
+* Tailwind als CSS Library → Weil so effektiver und schneller gearbeitet werden konnte
 
 # Lokale Installation
 ## Projekt klonen
@@ -89,8 +89,9 @@ Damit dieses Sicherheitskonzept auch in der lokalen Entwicklungsumgebung funktio
 ```
 
 
-## Backend und Datenbank starten
-Über die compose.yaml können nun der Backend- und Datenbank-Container gestartet werden:
+## Backend, Frontend und Datenbank starten
+Über die compose.yaml (im twitter directory) können nun der Backend-, Frontend- und Datenbank-Container gestartet werden:
+
 ```shell
   docker compose up
 ```
