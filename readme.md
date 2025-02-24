@@ -39,8 +39,9 @@ Aus Kosten- und Komplexitätsgründen gibt es jedoch teilweise Abweichungen:
 * Die Anwendung läuft in Docker-Containern
 
 ### Abweichungen zum ACD
-* PrimeNG als Component-Library
+* PrimeNG als Component-Library → Weil Angular-Material schon zu oft benutzt und ich wollte mal eine andere Library ausprobieren
 * PostgreSQL als Datenbank
+* Tailwind als CSS Library → Weil nicht das Aussehen, sondern die Funktionalität im Vordergrund steht und ich so schneller und effektiver CSS im HTML Code nutzen konnte
 
 # Lokale Installation
 ## Projekt klonen
