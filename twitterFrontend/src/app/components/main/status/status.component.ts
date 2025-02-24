@@ -4,7 +4,7 @@ import {TweetService} from '../../../service/tweet.service';
 import {TweetModel} from '../../../model/tweet-model';
 import {PostComponent} from '../../shared/post/post.component';
 import {ProgressSpinner} from 'primeng/progressspinner';
-import {PostSkeletonComponent} from '../../shared/post-skeleton/post-skeleton.component';
+import {PostSkeletonComponent} from '../../shared/skeleton/post-skeleton/post-skeleton.component';
 import {RouteBackHeaderComponent} from '../../shared/route-back-header/route-back-header.component';
 
 @Component({
@@ -39,6 +39,9 @@ export class StatusComponent implements OnChanges {
     }
   }
 
+  onCommented() {
+    this.loadStatus()
+  }
 
   loadStatus() {
     this.loading = true;
@@ -54,9 +57,6 @@ export class StatusComponent implements OnChanges {
     })
   }
 
-  onCommented() {
-    this.loadStatus()
-  }
 
   loadMore() {
     if (!this.parent || !this.comments) return;

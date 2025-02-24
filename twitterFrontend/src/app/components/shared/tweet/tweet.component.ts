@@ -4,9 +4,9 @@ import {Avatar} from 'primeng/avatar';
 import {TimeAgoComponent} from '../time-ago/time-ago.component';
 import {Textarea} from 'primeng/textarea';
 import {QuoteComponent} from '../quote/quote.component';
-import {SocialInteractionsComponent} from "../social-interactions/social-interactions.component";
+import {SocialInteractionsComponent} from "./social-interactions/social-interactions.component";
 import {SocialInteractionsModel} from "../../../model/social-interactions-model";
-import {RetweetLabelComponent} from "../retweet-label/retweet-label.component";
+import {RetweetLabelComponent} from "./retweet-label/retweet-label.component";
 import {Router} from '@angular/router';
 
 @Component({

@@ -1,10 +1,10 @@
-<div class="w-full flex flex-col p-2 gap-4">
+<div class=" hidden max-w-96 md:flex flex-col min-h-screen p-2 gap-4">
   <div class="w-full flex flex-row items-center">
     <input pInputText type="text" size="large" placeholder="Suchen" fluid="true" class="rounded-3xl"/>
   </div>
   <div class="w-full flex flex-col border border-gray-500 border-opacity-25 rounded-3xl p-4">
     <span class="text-xl">Premium abonnieren</span>
-    <span class="text-sm">Hol dir ein Abonnement, wenn du daran interessiert bist Elon Musk noch mehr Geld in den Rachen zu schieben! Unterstütze Ihn damit die Demokratien auf der Welt zu unterwandern und rechtsradikale Parteien zu unterstützen!</span>
+    <span class="text-sm">Hol dir ein Abonnement, wenn du Elon Musk noch reicher machen möchtest! Wir müssen Elon ganz viel Geld geben, sodass er noch mehr Demokratien auf dieser Welt unterwandern kann!</span>
     <p-button label="Abonnieren" class="mt-4" severity="help" disabled="true" rounded="true"/>
   </div>
   <div class="w-full flex flex-col gap-4 border border-gray-500 border-opacity-25 rounded-3xl p-4">
@@ -12,35 +12,9 @@
       <span class="text-xl">Wem folgen?</span>
     </div>
     <div class="flex flex-col gap-4">
-      <div class="flex flex-row items-center justify-between rounded-full">
-        <div class="flex gap-1 items-center" tabindex="0">
-          <p-avatar icon="pi pi-user" size="normal" shape="circle"/>
-          <span class="hidden xl:block">GregoryPeck</span>
-        </div>
-        <div>
-          <p-button label="Folgen" rounded="true" size="small" disabled="true"/>
-        </div>
-      </div>
-
-      <div class="flex flex-row items-center justify-between rounded-full">
-        <div class="flex gap-1 items-center" tabindex="0">
-          <p-avatar icon="pi pi-user" size="normal" shape="circle"/>
-          <span class="hidden xl:block">Jonas</span>
-        </div>
-        <div>
-          <p-button label="Folgen" rounded="true" size="small" disabled="true"/>
-        </div>
-      </div>
-
-      <div class="flex flex-row items-center justify-between rounded-full">
-        <div class="flex gap-1 items-center" tabindex="0">
-          <p-avatar icon="pi pi-user" size="normal" shape="circle"/>
-          <span class="hidden xl:block">ElonMusk</span>
-        </div>
-        <div>
-          <p-button label="Folgen" rounded="true" size="small" disabled="true"/>
-        </div>
-      </div>
+      <app-follow-user username="GregoryPeck"></app-follow-user>
+      <app-follow-user username="ElonMusk"></app-follow-user>
+      <app-follow-user username="21Savage"></app-follow-user>
     </div>
   </div>
 </div>

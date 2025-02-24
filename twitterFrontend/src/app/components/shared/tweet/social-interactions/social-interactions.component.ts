@@ -1,12 +1,12 @@
 import {Component, EventEmitter, inject, Input, Output, ViewChild} from '@angular/core';
-import {SocialInteractionsModel} from '../../../model/social-interactions-model';
+import {SocialInteractionsModel} from '../../../../model/social-interactions-model';
 import {NgClass} from '@angular/common';
-import {TweetService} from '../../../service/tweet.service';
+import {TweetService} from '../../../../service/tweet.service';
 import {Popover} from 'primeng/popover';
 import {Dialog} from 'primeng/dialog';
-import {PostComponent} from '../post/post.component';
-import {FeedService} from '../../../service/feed.service';
-import {TweetModel} from '../../../model/tweet-model';
+import {PostComponent} from '../../post/post.component';
+import {FeedService} from '../../../../service/feed.service';
+import {TweetModel} from '../../../../model/tweet-model';
 
 @Component({
   selector: 'app-social-interactions',

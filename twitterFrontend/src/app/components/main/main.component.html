@@ -1,10 +1,8 @@
-<div class="flex flex-row h-screen lg:justify-center overflow-y-scroll">
-  <app-menu class="sticky top-0 h-screen"/>
-  <div class="w-full lg:max-w-xl">
-    <router-outlet />
+<div class="flex flex-row h-screen md:justify-center overflow-y-scroll">
+  <app-menu class="sticky top-0 overflow-auto" />
+  <div class="w-full md:max-w-xl ">
+    <router-outlet/>
   </div>
-  <app-info class="lg:w-1/6 lg:block border hidden border-gray-300 border-opacity-20 sticky top-0 h-screen">
-    Info
-  </app-info>
+  <app-info class="sticky top-0 overflow-auto" />
 </div>
 

@@ -57,7 +57,7 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // gets the container in which the scroll active --> the main component --> because there is the overflow-y-scroll css attribute
+    // gets the container in which the scroll is active --> the main component --> because there is the overflow-y-scroll css attribute
     this.scrollContainer = this.renderer.selectRootElement('.flex.flex-row.h-screen.overflow-y-scroll', true);
 
     if (!this.scrollContainer) {
@@ -67,7 +67,7 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
     this.scrollSubscription = this.getScrollEvent();
   }
 
-  /* load the newest tweets on the first load of the feed with a limit */
+  /* load the newest tweets on the first load (init) of the feed with a limit */
   private loadNewest(): void {
     this.loading = true;
     this.tweetService.newest(this.loadNewestLimit).subscribe({
@@ -91,7 +91,7 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(() => {
         const scrollPosition = this.getScrollPercent();
 
-        if (scrollPosition > 90) {
+        if (scrollPosition > 90) { //hardcoded load next Tweets if 90% is scrolled
           this.loadBefore();
         }
       });
@@ -136,6 +136,7 @@ export class FeedComponent implements OnInit, AfterViewInit, OnDestroy {
    else this.showErrorToast();
   }
 
+  // this methods reloads the feed if other components are calling to refresh the feed
   subscribeRefreshFeedService() {
     this.refreshFeedSubscription = this.feedService.refreshFeed$.subscribe({
       next: () => {
