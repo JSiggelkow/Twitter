@@ -1,8 +1,20 @@
 <div class="w-full flex flex-col">
-  <app-route-back-header title="Lesezeichen" ></app-route-back-header>
+  <app-route-back-header title="Lesezeichen"></app-route-back-header>
   <div class="w-full flex- flex-col">
     @for (post of savedPosts; track post) {
       <app-tweet [tweet]="post"></app-tweet>
     }
+
+    @if (loading) {
+      <div class="w-full flex justify-center items-center">
+        <p-progress-spinner ariaLabel="loading" strokeWidth="8" animationDuration=".5s" class="mt-4"
+                            [style]="{width: '50px', height: '50px', stroke: 'blue'}"/>
+      </div>
+    }
   </div>
+  @if (savedPosts && +savedPosts.length >= 25) {
+    <div class="flex justify-center items-center cursor-pointer p-2" (click)="loadMore()" (keydown.enter)="loadMore()">
+      <span class="text-blue-500">Mehr laden</span>
+    </div>
+  }
 </div>
