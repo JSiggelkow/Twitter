@@ -23,4 +23,4 @@ security:
 
 logging:
   level:
-    org.springframework.web: error
+    org.springframework.web: DEBUG
