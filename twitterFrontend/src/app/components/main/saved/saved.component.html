@@ -1,3 +1,8 @@
 <div class="w-full flex flex-col">
   <app-route-back-header title="Lesezeichen" ></app-route-back-header>
+  <div class="w-full flex- flex-col">
+    @for (post of savedPosts; track post) {
+      <app-tweet [tweet]="post"></app-tweet>
+    }
+  </div>
 </div>

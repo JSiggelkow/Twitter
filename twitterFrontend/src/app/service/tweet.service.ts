@@ -43,5 +43,13 @@ export class TweetService {
   toggleSave(tweetId: string) {
     return this.http.post(`http://localhost:8080/api/post/save?postId=${tweetId}`, {}, {withCredentials: true});
   }
+
+  saved() {
+    return this.http.get<TweetModel[]>(`http://localhost:8080/api/post/saved`, {withCredentials: true});
+  }
+
+  savedBefore(createdAd: string) {
+    return this.http.get<TweetModel[]>(`http://localhost:8080/api/post/saved?createdAt=${createdAd}`, {withCredentials: true});
+  }
 }
 

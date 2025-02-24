@@ -12,6 +12,6 @@
 <p-popover #pop>
   <div class="flex flex-col gap-1">
     <p-button [disabled]="true" label="Bestehenden Account hinzufügen" severity="primary" fluid="true" />
-    <p-button icon="pi pi-sign-out" [loading]="loading" (click)="onLogout()" (keydown.enter)="onLogout()" label="@username abmelden" severity="danger" fluid="true" />
+    <p-button icon="pi pi-sign-out" [loading]="loading" (click)="onLogout()" (keydown.enter)="onLogout()" label="@{{username}} abmelden" severity="danger" fluid="true" />
   </div>
 </p-popover>
