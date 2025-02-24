@@ -2,7 +2,6 @@ import {Component, inject} from '@angular/core';
 import {Button} from 'primeng/button';
 import {MenuItemComponent} from './menu-item/menu-item.component';
 import {MenuUserCardComponent} from './menu-user-card/menu-user-card.component';
-import {Toast} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 
 @Component({
@@ -10,8 +9,7 @@ import {MessageService} from 'primeng/api';
   imports: [
     Button,
     MenuItemComponent,
-    MenuUserCardComponent,
-    Toast,
+    MenuUserCardComponent
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
