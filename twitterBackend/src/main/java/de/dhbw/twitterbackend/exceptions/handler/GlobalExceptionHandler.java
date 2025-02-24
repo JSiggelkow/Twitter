@@ -3,7 +3,7 @@ package de.dhbw.twitterbackend.exceptions.handler;
 import de.dhbw.twitterbackend.exceptions.PostAlreadyRepostedException;
 import de.dhbw.twitterbackend.exceptions.PostNotFoundException;
 import de.dhbw.twitterbackend.exceptions.UserNotFoundException;
-import de.dhbw.twitterbackend.util.ErrorObject;
+import de.dhbw.twitterbackend.exceptions.ErrorObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

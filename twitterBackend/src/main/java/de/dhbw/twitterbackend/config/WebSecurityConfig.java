@@ -72,6 +72,9 @@ public class WebSecurityConfig {
 		return authBuilder.build();
 	}
 
+	/**
+	 * this config configures the cors settings and enables the frontend ulr for cors
+	 */
 	@Bean
 	public WebMvcConfigurer corsConfig() {
 		return new WebMvcConfigurer() {

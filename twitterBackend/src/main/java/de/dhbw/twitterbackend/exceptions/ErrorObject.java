@@ -1,4 +1,4 @@
-package de.dhbw.twitterbackend.util;
+package de.dhbw.twitterbackend.exceptions;
 
 import lombok.Data;
 

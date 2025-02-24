@@ -52,6 +52,13 @@ public class RetweetService {
 		return retweetRepository.existsById(new RetweetId(user.getId(), post.getId()));
 	}
 
+	/**
+	 * Retrieves a list of retweets made before a specified time, limited by a maximum number of results.
+	 *
+	 * @param limit the maximum number of retweets to retrieve
+	 * @param timeLimit the time to filter retweets; only retweets created before this time will be included
+	 * @return a list of retweets ordered by creation date in descending order
+	 */
 	public List<Retweet> getRetweetsBeforeRetweetedAtByLimit(int limit, OffsetDateTime timeLimit) {
 		return retweetRepository.findByTweetCreatedAtOrderByTweetCreatedAtDesc(timeLimit, PageRequest.of(0, limit));
 	}

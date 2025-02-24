@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+/**
+ * The PostController class handles requests related to posts, including creating posts, retrieving posts,
+ * toggling actions such as likes, retweets, and saves, and fetching saved posts. It utilizes various services
+ * and mappers to perform operations and manage post-related functionality.
+ */
 @RestController
 @RequestMapping("/api/post")
 @RequiredArgsConstructor
@@ -37,11 +42,26 @@ public class PostController {
 						postMapper.toPost(createPostDTO, userPrincipal), userPrincipal), userPrincipal));
 	}
 
+	/**
+	 * Retrieves a list of the newest posts limited by a specified number.
+	 *
+	 * @param limit the maximum number of posts to retrieve. Defaults to 25 if not specified.
+	 * @param userPrincipal the authenticated user making the request.
+	 * @return a list of the newest posts as PostDTOs wrapped in a ResponseEntity.
+	 */
 	@GetMapping("/newest")
 	public ResponseEntity<List<PostDTO>> getNewestByLimit(@RequestParam(defaultValue = "25") int limit, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(feedService.fetchByLimitAndAfterTime(limit, OffsetDateTime.now(), userPrincipal));
 	}
 
+	/**
+	 * Retrieves a list of tweets created before a specified timestamp and limited by a specified number of results.
+	 *
+	 * @param createdAt the timestamp to filter tweets that were created before this time.
+	 * @param limit the maximum number of tweets to retrieve. Defaults to 10 if not specified.
+	 * @param userPrincipal the authenticated user making the request.
+	 * @return a list of tweets as PostDTOs wrapped in a ResponseEntity.
+	 */
 	@GetMapping("/before")
 	public ResponseEntity<List<PostDTO>> getTweetsBeforeCreatedAtByLimit(
 			@RequestParam OffsetDateTime createdAt,
@@ -50,6 +70,15 @@ public class PostController {
 		return ResponseEntity.ok(feedService.fetchByLimitAndAfterTime(limit, createdAt, userPrincipal));
 	}
 
+	/**
+	 * Retrieves the status of a parent post, including its comments, based on the provided parameters.
+	 *
+	 * @param parentPostId the ID of the parent post for which the status and comments are to be retrieved.
+	 * @param createdAt an optional parameter to filter comments created before the specified timestamp. If not provided, the current timestamp is used.
+	 * @param limit the maximum number of comments to retrieve. Defaults to 20 if not specified.
+	 * @param userPrincipal the authenticated user making the request.
+	 * @return a ResponseEntity containing the status of the parent post as a StatusDTO.
+	 */
 	@GetMapping("/status")
 	public ResponseEntity<StatusDTO> getCommentsForPost(
 			@RequestParam Long parentPostId,
@@ -65,6 +94,30 @@ public class PostController {
 				limit, userPrincipal
 		));
 	}
+
+	/**
+	 * Retrieves a list of saved posts for the authenticated user, filtered by an optional creation timestamp
+	 * and limited to the specified number of results.
+	 *
+	 * @param createdAt an optional filter for retrieving posts saved before the specified timestamp
+	 *                  (if null, the current timestamp is used).
+	 * @param limit the maximum number of saved posts to retrieve (default is 25).
+	 * @param userPrincipal the authenticated user's principal information.
+	 * @return a ResponseEntity containing a list of PostDTO objects representing the saved posts.
+	 */
+	@GetMapping("/saved")
+	public ResponseEntity<List<PostDTO>> getSavedByUser(
+			@RequestParam(required = false) OffsetDateTime createdAt,
+			@RequestParam(defaultValue = "25") int limit,
+			@AuthenticationPrincipal UserPrincipal userPrincipal
+	) {
+		return ResponseEntity.ok(saveService.findAllSavedPostsByUserAndSavedAtBefore(
+				userService.findByUsername(userPrincipal.getUsername()),
+				createdAt != null ? createdAt : OffsetDateTime.now(),
+				limit
+		).stream().map(post -> postMapper.toDTO(post, userPrincipal)).toList());
+	}
+
 
 	@PostMapping("/like")
 	public ResponseEntity<Void> toggleLike(@RequestParam long postId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
@@ -96,16 +149,4 @@ public class PostController {
 		return ResponseEntity.ok().build();
 	}
 
-	@GetMapping("/saved")
-	public ResponseEntity<List<PostDTO>> getSavedByUser(
-			@RequestParam(required = false) OffsetDateTime createdAt,
-			@RequestParam(defaultValue = "25") int limit,
-			@AuthenticationPrincipal UserPrincipal userPrincipal
-	) {
-		return ResponseEntity.ok(saveService.findAllSavedPostsByUserAndSavedAtBefore(
-				userService.findByUsername(userPrincipal.getUsername()),
-				createdAt != null ? createdAt : OffsetDateTime.now(),
-				limit
-		).stream().map(post -> postMapper.toDTO(post, userPrincipal)).toList());
-	}
 }

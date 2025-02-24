@@ -21,6 +21,13 @@ public class PostMapper {
 	private final PostService postService;
 	private final SaveService saveService;
 
+	/**
+	 * Converts a Post entity to a PostDTO, including additional details such as the current user's interactions with the post.
+	 *
+	 * @param post the Post entity to be converted
+	 * @param userPrincipal the UserPrincipal representing the currently logged-in user
+	 * @return a PostDTO containing the details of the post along with user interaction statuses
+	 */
 	public PostDTO toDTO(Post post, UserPrincipal userPrincipal) {
 
 		User user = userService.findByUsername(userPrincipal.getUsername());
@@ -42,7 +49,13 @@ public class PostMapper {
 	}
 
 	/**
-	 * overloaded toDTO methods for retweets without text
+	 * Converts a Retweet entity to a PostDTO, including information about the original post,
+	 * the user who retweeted it, and details about the current user's interactions with the post.
+	 *
+	 * @param userPrincipal the UserPrincipal representing the currently authenticated user
+	 * @param retweet the Retweet entity containing information about the retweeted post
+	 * @return a PostDTO containing the details of the retweeted post, user interaction statuses,
+	 *         and the user who retweeted it
 	 */
 	public PostDTO toDTO(UserPrincipal userPrincipal, Retweet retweet) {
 
@@ -64,6 +77,17 @@ public class PostMapper {
 				saveService.isPostSavedByUser(retweet.getPost(), user));
 	}
 
+	/**
+	 * Converts a CreatePostDTO and a UserPrincipal to a Post entity.
+	 * This method maps the text from CreatePostDTO, associates the requesting user from UserPrincipal,
+	 * and associates retweet or comment relationships if specified in the input DTO.
+	 *
+	 * @param createPostDTO the DTO containing the details of the post to be created,
+	 *                      including text, retweetId (if the post is a retweet),
+	 *                      and commentOn (if the post is a comment).
+	 * @param userPrincipal the user principal object containing information about the currently authenticated user.
+	 * @return a populated Post entity with the specified details and relationships.
+	 */
 	public Post toPost(CreatePostDTO createPostDTO, UserPrincipal userPrincipal) {
 		Post post = new Post();
 		post.setText(createPostDTO.text());

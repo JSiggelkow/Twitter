@@ -33,14 +33,26 @@ public class PostService {
 		return save(post);
 	}
 
+	/**
+	 * Retrieves a list of comments associated with the specified parent post,
+	 * which were created before the given time limit, limited to a specified number of results.
+	 *
+	 * @param parent the parent post for which comments are to be retrieved
+	 * @param timeLimit the upper time limit; only comments created before this time will be included
+	 * @param limit the maximum number of comments to retrieve
+	 * @return a list of comments associated with the specified parent post
+	 */
 	public List<Post> findAllByCommentOn(Post parent, OffsetDateTime timeLimit, int limit) {
 		return postRepository.findAllCommentsByParentPostAndCreatedAtBefore(parent, timeLimit, PageRequest.of(0, limit));
 	}
 
 	/**
-	 * Gets the newest Tweets in descending order by created At from the Database
-	 * this is important for the initial loading request for the main feed
+	 * Retrieves a list of non-comment posts created before the specified time limit,
+	 * limited to a specified number of posts.
 	 *
+	 * @param limit the maximum number of posts to retrieve
+	 * @param timeLimit the upper time limit; only posts created before this time will be included
+	 * @return a list of posts
 	 */
 	public List<Post> getByLimitAndTimeLimit(int limit, OffsetDateTime timeLimit) {
 		return postRepository.findAllNonCommentPostsByCreatedAtBefore(timeLimit ,PageRequest.of(0, limit));

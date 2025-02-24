@@ -18,10 +18,6 @@ public class PostLikeService {
 		postLikeRepository.save(postLike);
 	}
 
-	/**
-	 * if user has liked a tweet it gets unliked
-	 * else the tweet gets liked
-	 */
 	public void toggleLike(Post post, User user) {
 		if (isPostLikedByUser(post, user)) {
 			unlikePost(post, user);

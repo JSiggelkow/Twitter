@@ -47,6 +47,15 @@ public class SaveService {
 		return saveRepository.existsById(new SaveId(user.getId(), post.getId()));
 	}
 
+	/**
+	 * Retrieves a list of posts saved by a specific user, filtered by posts created before a specified timestamp,
+	 * with a limit on the number of results.
+	 *
+	 * @param user the user whose saved posts are to be retrieved
+	 * @param createdAt the timestamp that filters posts created before this time
+	 * @param limit the maximum number of posts to return
+	 * @return a list of saved posts for the specified user, created before the given timestamp, up to the specified limit
+	 */
 	public List<Post> findAllSavedPostsByUserAndSavedAtBefore(User user, OffsetDateTime createdAt, int limit) {
 		return saveRepository.findAllSavedPostsByUserAndSavedAtBefore(user, createdAt, PageRequest.of(0, limit));
 	}

@@ -10,7 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -23,11 +22,6 @@ public class UserController {
 	public ResponseEntity<Void> signUp(@RequestBody @Validated User user) {
 		userService.signUp(user.getUsername(), user.getPassword(), user.getEmail());
 		return ResponseEntity.ok().build();
-	}
-
-	@GetMapping
-	public ResponseEntity<List<User>> getAllUser() {
-		return ResponseEntity.ok(userService.findAll());
 	}
 
 	@GetMapping("/exists/username")

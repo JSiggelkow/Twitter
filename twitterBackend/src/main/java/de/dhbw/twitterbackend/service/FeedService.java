@@ -11,9 +11,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Service responsible for providing and managing the user's feed, which consists of
+ * both tweets and retweets. The FeedService interacts with the PostService and
+ * RetweetService to fetch posts and retweets and merges them to create a complete
+ * feed for the user.
+ */
 @Service
 @RequiredArgsConstructor
 public class FeedService {
+
 
 	private final PostService postService;
 	private final RetweetService retweetService;
@@ -34,6 +41,15 @@ public class FeedService {
 				.toList();
 	}
 
+	/**
+	 * Combines tweets and retweets for a user's feed, sorts them in descending
+	 * order by creation time, and applies a limit and time restriction.
+	 *
+	 * @param limit the maximum number of tweets and retweets to return
+	 * @param timeLimit the time limit for filtering tweets and retweets
+	 * @param userPrincipal the user principal containing user-specific information
+	 * @return a combined and sorted list of tweet and retweet DTOs
+	 */
 	private List<PostDTO> mergeTweetsAndRetweets(int limit, OffsetDateTime timeLimit, UserPrincipal userPrincipal) {
 
 		List<PostDTO> feed = new ArrayList<>();
@@ -44,6 +60,12 @@ public class FeedService {
 				.sorted(Comparator.comparing(PostDTO::createdAt).reversed())
 				.toList();
 	}
+
+	/**
+	 * The following method filters retweets to include only those created
+	 * after the oldest tweet in the fetched feed.
+	 *
+	 */
 
 	private List<PostDTO> timeFilteredRetweets(List<PostDTO> retweets, List<PostDTO> tweets) {
 		return retweets.stream()
