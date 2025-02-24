@@ -57,7 +57,7 @@ export class StatusComponent implements OnChanges {
     })
   }
 
-
+  //loads more comments and adds them to the comments array
   loadMore() {
     if (!this.parent || !this.comments) return;
     this.tweetService.statusBefore(this.parentId, this.comments[this.comments.length - 1].createdAt).subscribe({

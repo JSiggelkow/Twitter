@@ -12,6 +12,9 @@ import {RouterOutlet} from '@angular/router';
 })
 export class AppComponent {
 
+
+  //sets the custom theme and the specific css order to enable tailwind
+
   constructor(private readonly primeng: PrimeNG) {
         this.primeng.theme.set({
             preset: MyPreset,

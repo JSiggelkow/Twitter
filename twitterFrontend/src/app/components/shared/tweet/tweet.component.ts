@@ -43,6 +43,7 @@ export class TweetComponent {
     isSaved: false,
   };
 
+  // gets the required attributes for the socialInteractions component
   get socialInteractions(): SocialInteractionsModel {
     return {
       tweetId: this.tweet.id,
@@ -62,6 +63,7 @@ export class TweetComponent {
     }
   }
 
+  //updates the tweet on social interactions change so the input object gets updated --> update gets triggered if social interactions component emits a change
   onSocialInteractionsChange(updated: SocialInteractionsModel) {
     this.tweet = {
       ...this.tweet,

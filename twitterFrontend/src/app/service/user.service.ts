@@ -36,10 +36,6 @@ export class UserService {
     this.userSubject.next(userModel);
   }
 
-  getUser(){
-    return this.userSubject.value;
-  }
-
   clearUserData(){
     this.userSubject.next(null);
   }

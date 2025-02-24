@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
 import {Textarea} from 'primeng/textarea';
 import {Button} from 'primeng/button';
@@ -35,9 +35,10 @@ export class PostComponent {
   tweetService = inject(TweetService);
 
   text!: string;
-  maxLength = 200;
+  maxLength = 200; //hardcodes maximum char length for tweet
   loading: boolean = false;
 
+  // different input options for customization
   @Input() placeholder: string = "Was gibt's Neues?!";
   @Input() postButtonLabel: string = "Posten";
   @Input() showParent: boolean = false;
@@ -82,6 +83,7 @@ export class PostComponent {
     this.post();
   }
 
+  //posts a tweet and on success emits the tweet to possible parent components
   post() {
     this.tweetService.post(this.postModel).subscribe({
       next: (tweet) => {
