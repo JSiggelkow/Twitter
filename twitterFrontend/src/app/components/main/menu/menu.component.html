@@ -18,16 +18,14 @@
       />
     }
   </div>
-  <div class="mt-2 max-w-60"
-       (keydown.enter)="notYetImplementedToast()"
-       (click)="notYetImplementedToast()"
-  >
-    <p-button label="Posten" fluid="true" rounded="true" class="hidden xl:block"/>
-    <p-button icon="pi pi-pencil" size="large" rounded="true" class="xl:hidden"/>
+  <div class="mt-2 max-w-60">
+    <p-button disabled="true" label="Posten" fluid="true" rounded="true" class="hidden xl:block"/>
+    <p-button disabled="true" icon="pi pi-pencil" size="large" rounded="true" class="xl:hidden"/>
   </div>
   <div class="m-auto"></div>
   <div>
-    <app-menu-user-card />
+    <app-menu-user-card/>
   </div>
 </div>
+
 

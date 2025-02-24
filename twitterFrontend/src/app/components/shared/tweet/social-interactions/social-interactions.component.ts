@@ -192,6 +192,7 @@ export class SocialInteractionsComponent {
   }
 
   handlePost() {
+    this.retweetPop.hide();
     this.quoteDialogVisible = false;
     this.commentDialogVisible = false;
     this.feedService.refreshFeed();
