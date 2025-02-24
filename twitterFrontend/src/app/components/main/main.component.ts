@@ -2,12 +2,14 @@ import {Component, inject, OnInit} from '@angular/core';
 import {MenuComponent} from './menu/menu.component';
 import {UserService} from '../../service/user.service';
 import {RouterOutlet} from '@angular/router';
+import {InfoComponent} from './info/info.component';
 
 @Component({
   selector: 'app-home',
   imports: [
     MenuComponent,
-    RouterOutlet
+    RouterOutlet,
+    InfoComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

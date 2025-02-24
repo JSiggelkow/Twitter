@@ -700,6 +700,14 @@ const MyPreset = definePreset(Aura, {
     },
     dialog: {
       background: "#121212",
+    },
+    inputtext: {
+      background: "#121212",
+      focus: {
+        border : {
+          color: "#3b82f6"
+        }
+      }
     }
   }
 });
