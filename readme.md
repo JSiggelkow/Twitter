@@ -64,12 +64,16 @@ Mit hilfe der compose.yaml können nun der Backend- und Datenbank-Container gest
 > **_NOTE:_**  docker compose up -d um die Container im Hintergrund zu starten :)
 
 # Datenbank
-Obwohl aus dem ACD die Nutzung einer Oracle Database hervorgeht, wurde sich aus Kostengründen für die erstellung des Prototyps für eine PostgreSQL Datenbanklösung entschieden.\
+Obwohl aus dem ACD die Nutzung einer Oracle Database hervorgeht, wurde sich aus Kostengründen für die Erstellung des Prototyps für eine PostgreSQL Datenbanklösung entschieden.\
 Um Datenbankänderungen und Versionen transparent zu gestalten wurde außerdem Flyway für die Datenbankmigration genutzt.
-Vor der Erstellung der Datenbank wurde eine Entity Relationship Modell erstellt um die Entitäten und Abhängigkeiten darzustellen.
+Vor der Erstellung der Datenbank wurde eine Entity Relationship Modell erstellt um die Entitäten und Abhängigkeiten darzustellen.\
+Für die Erstellung des Entity Relationship Modells wurde als erstes Twitter analysiert. Hierbei ist aufgefallen, dass Twitter hauptsächliche zwei Entitäten hat: User und Post\
+Alle anderen "Objekte" wie Retweet, Quote, Comment sind auch im Allgemeinen normale Posts.
 ## Entity Relationship Modell
 ![alt Entity Relationship Modell](/assets/EntityRelationshipModell.png "Entity Relationship Modell")
 ## Relationenmodell
-Aus dem Entity Relationship Modell wurde anschließend ein Relationenmodell erstellt und normalisiert.
+Auf Grundlage des Entity Relationship Modells wurde anschließend ein Relationenmodell erstellt.\
+Dieses wurde dann normalisiert, sodass fünf verschiedene Tabellen erstellt werden: Users, Post, Retweet, Save, PostLikes: \
 ![alt Relationenmodell](/assets/Relationenmodell.png "Relationenmodell")
  
+5
