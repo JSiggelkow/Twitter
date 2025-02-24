@@ -95,4 +95,17 @@ public class PostController {
 
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping("/saved")
+	public ResponseEntity<List<PostDTO>> getSavedByUser(
+			@RequestParam(required = false) OffsetDateTime createdAt,
+			@RequestParam(defaultValue = "25") int limit,
+			@AuthenticationPrincipal UserPrincipal userPrincipal
+	) {
+		return ResponseEntity.ok(saveService.findAllSavedPostsByUserAndSavedAtBefore(
+				userService.findByUsername(userPrincipal.getUsername()),
+				createdAt != null ? createdAt : OffsetDateTime.now(),
+				limit
+		).stream().map(post -> postMapper.toDTO(post, userPrincipal)).toList());
+	}
 }

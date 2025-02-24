@@ -6,7 +6,11 @@ import de.dhbw.twitterbackend.model.SaveId;
 import de.dhbw.twitterbackend.model.User;
 import de.dhbw.twitterbackend.repository.SaveRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+import java.util.List;
 
 
 @Service
@@ -41,5 +45,9 @@ public class SaveService {
 
 	public boolean isPostSavedByUser(Post post, User user) {
 		return saveRepository.existsById(new SaveId(user.getId(), post.getId()));
+	}
+
+	public List<Post> findAllSavedPostsByUserAndSavedAtBefore(User user, OffsetDateTime createdAt, int limit) {
+		return saveRepository.findAllSavedPostsByUserAndSavedAtBefore(user, createdAt, PageRequest.of(0, limit));
 	}
 }
