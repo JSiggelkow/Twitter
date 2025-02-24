@@ -18,7 +18,7 @@ services:
 
   ## Spring Boot Backend
   backend:
-    build: .
+    build: /twitterBackend/.
     container_name: twitter-backend
     depends_on:
       - db
@@ -38,12 +38,19 @@ services:
       - db_password
       - jwt_key
 
+  ## Angular Frontend
+  frontend:
+    build: /twitterFrontend/.
+    container_name: twitter-frontend
+    ports:
+      - "4200:4200"
+
 ## Secrets
 secrets:
   db_password:
-    file: secrets/db_password.txt
+    file: twitterBackend/secrets/db_password.txt
   jwt_key:
-    file: secrets/jwt_key.txt
+    file: twitterBackend/secrets/jwt_key.txt
 
 ## Volumes
 volumes:
